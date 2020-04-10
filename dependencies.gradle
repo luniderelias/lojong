@@ -1,0 +1,40 @@
+ext {
+    versions = [
+            // region Kotlin
+            coroutines : '1.2.1',
+            koin : '1.0.1',
+
+            // region UI
+            androidx : '1.2.0-alpha02',
+            androidx_recycler_view : '1.2.0-alpha01',
+            androidx_fragment : '1.2.1',
+            constraint_layout : '2.0.0-beta4',
+            android_material : '1.1.0-alpha09',
+            glide : '4.9.0',
+
+            // region Architecture
+            arch_components : '2.2.3',
+
+            // region Networking
+            okhttp : '3.10.0',
+            retrofit : '2.4.0',
+            gson : '2.8.5',
+
+            // testing
+            junit : '4.12',
+            mockito_kotlin : '2.1.0',
+            espresso : '3.1.0',
+            android_testing : '1.1.0',
+
+            eventbus : '3.1.1'
+    ]
+
+    tools = [
+            minSdkVersion       : 17,
+            compileSdkVersion   : 29,
+            targetSdkVersion    : 29,
+            applicationId       : "com.example.mvvm_base_kotlin",
+            versionCode         : 00001,
+            versionName         : "0.00.01"
+    ]
+}
