@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name="com.example.mvp_livedata_base_kotlin.main.MainActivity">
+        <activity android:name="com.example.mvp_livedata_base_kotlin.views.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

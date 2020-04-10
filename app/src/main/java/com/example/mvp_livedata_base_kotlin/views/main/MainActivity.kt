@@ -1,4 +1,4 @@
-package com.example.mvp_livedata_base_kotlin.main
+package com.example.mvp_livedata_base_kotlin.views.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.mvp_livedata_base_kotlin.data.ExampleData
 import com.example.mvp_livedata_base_kotlin.data.ExampleRepositoryMock
-import com.example.mvp_livedata_base_kotlin.main.MainContract
-import com.example.mvp_livedata_base_kotlin.main.MainPresenter
+import com.example.mvp_livedata_base_kotlin.views.main.MainContract
+import com.example.mvp_livedata_base_kotlin.views.main.MainPresenter
 import com.example.mvp_livedata_base_kotlin.util.testApp
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.Dispatchers

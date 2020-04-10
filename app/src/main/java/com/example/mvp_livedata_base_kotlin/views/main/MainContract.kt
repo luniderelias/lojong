@@ -1,4 +1,4 @@
-package com.example.mvp_livedata_base_kotlin.main
+package com.example.mvp_livedata_base_kotlin.views.main
 
 import androidx.lifecycle.MutableLiveData
 import com.example.mvp_livedata_base_kotlin.base.BasePresenter

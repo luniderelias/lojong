@@ -4,8 +4,10 @@ import com.example.mvp_livedata_base_kotlin.base.application.ReleaseStartApplica
 import com.example.mvp_livedata_base_kotlin.base.application.StarterApplication
 import com.example.mvp_livedata_base_kotlin.data.ExampleRepository
 import com.example.mvp_livedata_base_kotlin.data.ExampleRepositoryMock
-import com.example.mvp_livedata_base_kotlin.main.MainContract
-import com.example.mvp_livedata_base_kotlin.main.MainPresenter
+import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsContract
+import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsPresenter
+import com.example.mvp_livedata_base_kotlin.views.main.MainContract
+import com.example.mvp_livedata_base_kotlin.views.main.MainPresenter
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers.Main
 import org.koin.dsl.module.module
@@ -25,6 +27,13 @@ val appModule = module {
             repository = get()
         )
     } bind MainContract.Presenter::class
+
+    factory { (view: FundamentalsContract.View) ->
+        FundamentalsPresenter(
+            view = view,
+            repository = get()
+        )
+    } bind FundamentalsContract.Presenter::class
 }
 
 val dispatcherModule = module {
