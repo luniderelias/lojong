@@ -26,7 +26,7 @@ class MainFragment : BaseFragment(), MainContract.View {
 
     override fun setupViews(view: View) {
         super.setupViews(view)
-        view.appCompatImageView.setOnClickListener { onReload() }
+
     }
 
     private fun setupPresenter() {
@@ -39,10 +39,9 @@ class MainFragment : BaseFragment(), MainContract.View {
     }
 
     override fun observeData() {
-        presenter.observeForExampleData().observe(this@MainFragment,
+        presenter.observeForExampleData().observe(viewLifecycleOwner,
             Observer { response ->
                 response?.let {
-                    view?.messageTextView?.text = it.message
                 }
             }
         )
@@ -53,7 +52,6 @@ class MainFragment : BaseFragment(), MainContract.View {
     }
 
     override fun handleMessageVisibility(shouldShow: Boolean) {
-        view?.messageTextView?.visibility = shouldShow.shouldShowView
         handleLoadingVisibility(!shouldShow)
     }
 

@@ -20,8 +20,8 @@ class FundamentalsPresenter(
         view.handleMessageVisibility(shouldShow = false)
         launchIO {
             response.postValue(repository.getExample())
-            view.handleMessageVisibility(shouldShow = true)
         }
+        view.handleMessageVisibility(shouldShow = true)
     }
 
     override fun observeForExampleData(): MutableLiveData<ExampleData> {

@@ -1,7 +1,10 @@
 package com.example.mvp_livedata_base_kotlin.views.fundamentals
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.lifecycle.Observer
 import com.example.mvp_livedata_base_kotlin.R
 import com.example.mvp_livedata_base_kotlin.base.BaseFragment
@@ -13,6 +16,7 @@ class FundamentalsFragment : BaseFragment(), FundamentalsContract.View {
 
     override val presenter by injectPresenter(this)
     override val resLayout = R.layout.fragment_main
+    private var fundamentalsView: FundamentalsView? = null
 
     companion object {
         fun newInstance() = FundamentalsFragment()
@@ -24,9 +28,15 @@ class FundamentalsFragment : BaseFragment(), FundamentalsContract.View {
         setupPresenter()
     }
 
-    override fun setupViews(view: View) {
-        super.setupViews(view)
-        view.appCompatImageView.setOnClickListener { onReload() }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        fundamentalsView = FundamentalsView(container!!.context)
+        setupViews(fundamentalsView!!)
+
+        return fundamentalsView
     }
 
     private fun setupPresenter() {
@@ -42,7 +52,6 @@ class FundamentalsFragment : BaseFragment(), FundamentalsContract.View {
         presenter.observeForExampleData().observe(viewLifecycleOwner,
             Observer { response ->
                 response?.let {
-                    view?.messageTextView?.text = it.message
                 }
             }
         )
@@ -53,7 +62,6 @@ class FundamentalsFragment : BaseFragment(), FundamentalsContract.View {
     }
 
     override fun handleMessageVisibility(shouldShow: Boolean) {
-        view?.messageTextView?.visibility = shouldShow.shouldShowView
         handleLoadingVisibility(!shouldShow)
     }
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mvp_livedata_base_kotlin.R
 import com.example.mvp_livedata_base_kotlin.base.extensions.addFragmentTo
+import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         addFragmentTo(R.id.container, fragment)
     }
 
-    private fun createFragment(): MainFragment {
-        return MainFragment.newInstance()
+    private fun createFragment(): FundamentalsFragment {
+        return FundamentalsFragment.newInstance()
     }
 }
