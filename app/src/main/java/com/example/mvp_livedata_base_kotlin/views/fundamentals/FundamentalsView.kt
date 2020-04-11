@@ -36,6 +36,10 @@ class FundamentalsView(context: Context) : SurfaceView(context), SurfaceHolder.C
         return true
     }
 
+    override fun performClick(): Boolean {
+        return super.performClick()
+    }
+
     override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
     }
 

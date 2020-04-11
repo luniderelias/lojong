@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
+import android.os.Build
+import android.util.TypedValue
 import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsView
 
 
@@ -19,6 +21,8 @@ abstract class Sprite(
 
     var screenHeight: Int = 0
     var screenWidth: Int = 0
+    var toolbarHeight: Int = 0
+    var statusBarHeight: Int = 0
 
     var x: Int = 0
     var y: Int = 0
@@ -35,6 +39,21 @@ abstract class Sprite(
     init {
         screenHeight = context.resources.displayMetrics.heightPixels
         screenWidth = context.resources.displayMetrics.widthPixels
+        getToolbarHeight(context)
+        getStatusBarHeight(context)
+    }
+
+    private fun getToolbarHeight(context: Context) {
+        val tv = TypedValue()
+        if (context.theme.resolveAttribute(android.R.attr.actionBarSize, tv, true))
+            toolbarHeight = TypedValue.complexToDimensionPixelSize(tv.data, context.resources.displayMetrics)
+    }
+
+    private fun getStatusBarHeight(context: Context){
+        val resId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resId > 0) {
+            statusBarHeight = context.resources.getDimensionPixelSize(resId)
+        }
     }
 
     open fun draw(canvas: Canvas) {
@@ -49,7 +68,7 @@ abstract class Sprite(
         y += 100
     }
 
-    open fun rotate(angle: Float){
+    open fun rotate(angle: Float) {
         this.angle = angle
     }
 

@@ -14,7 +14,8 @@ class Background(view: FundamentalsView, context: Context) : Sprite(view, contex
     init {
         globalDrawable = AppCompatResources.getDrawable(context, R.drawable.elephant_positions)
         width = screenWidth
-        height = screenHeight
+        height = (11.5 * screenWidth).toInt()
+        y = - height + screenHeight - toolbarHeight - statusBarHeight
     }
 
 
