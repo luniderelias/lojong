@@ -1,5 +1,6 @@
 package com.example.mvp_livedata_base_kotlin.views.fundamentals
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Build
 import android.view.MotionEvent
@@ -36,11 +37,13 @@ class FundamentalsView @JvmOverloads constructor(
         background = Background(this, context)
         character = Elephant(this, context)
         pathOne = Path(this, context, PathEnum.FIRST_PATH)
-        pathTwo = Path(this, context, PathEnum.FIRST_PATH)
+        pathTwo = Path(this, context, PathEnum.SECOND_PATH)
         holder.addCallback(this)
     }
 
     private var initialClick = 0
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         performClick()
         val pt = Point(event.x.toInt(), event.y.toInt())
@@ -62,10 +65,6 @@ class FundamentalsView @JvmOverloads constructor(
             pathOne.move(1)
             pathTwo.move(1)
         }
-    }
-
-    override fun performClick(): Boolean {
-        return super.performClick()
     }
 
     override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {

@@ -15,9 +15,6 @@ class Path(fundamentalsView: FundamentalsView, context: Context, pathEnum: PathE
 
     init {
         getCurrentPath(context, pathEnum)
-        width = (0.9 * screenWidth).toInt()
-
-        y = -height + screenHeight - toolbarHeight - statusBarHeight
     }
 
     private fun getCurrentPath(context: Context, pathEnum: PathEnum) {
@@ -25,16 +22,22 @@ class Path(fundamentalsView: FundamentalsView, context: Context, pathEnum: PathE
             PathEnum.FIRST_PATH -> {
                 globalDrawable = AppCompatResources.getDrawable(context, R.drawable.first_path)
                 height = canvasHeight / 3
+                y = - height + screenHeight - toolbarHeight - statusBarHeight
+                width = (0.8 * screenWidth).toInt()
+                x += (0.1 * screenWidth).toInt()
             }
             PathEnum.SECOND_PATH -> {
                 globalDrawable = AppCompatResources.getDrawable(context, R.drawable.second_path)
                 height = (2 * canvasHeight) / 3
+                y = - height - (canvasHeight / 3) + screenHeight - toolbarHeight - statusBarHeight
+                x += (0.0422015 * screenWidth).toInt()
+                width = screenWidth
             }
         }
     }
 
     override fun draw(canvas: Canvas) {
-        dst.set(x + (0.1 * screenWidth).toInt(), y, x + width, y + height)
+        dst.set(x, y, x + width, y + height)
         globalDrawable?.bounds = dst
         globalDrawable?.draw(canvas)
     }
