@@ -11,12 +11,14 @@ import android.view.SurfaceView
 import com.example.mvp_livedata_base_kotlin.sprite.Background
 import com.example.mvp_livedata_base_kotlin.sprite.Character
 import com.example.mvp_livedata_base_kotlin.sprite.Elephant
+import com.example.mvp_livedata_base_kotlin.sprite.Path
 
 
 class FundamentalsView(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
 
     private var character: Character
     private var background: Background
+    private var path: Path
 
     private var canvas: Canvas? = null
 
@@ -24,6 +26,7 @@ class FundamentalsView(context: Context) : SurfaceView(context), SurfaceHolder.C
         isFocusable = true
         background = Background(this, context)
         character = Elephant(this, context)
+        path = Path(this, context)
         holder.addCallback(this)
     }
 
@@ -82,5 +85,6 @@ class FundamentalsView(context: Context) : SurfaceView(context), SurfaceHolder.C
     private fun drawCanvas(canvas: Canvas) {
         background.draw(canvas)
         character.draw(canvas)
+        path.draw(canvas)
     }
 }

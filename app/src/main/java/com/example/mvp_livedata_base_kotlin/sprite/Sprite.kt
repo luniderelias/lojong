@@ -18,6 +18,7 @@ abstract class Sprite(
 
     var height: Int = 0
     var width: Int = 0
+    var canvasHeight: Int = 0
 
     var screenHeight: Int = 0
     var screenWidth: Int = 0
@@ -41,6 +42,7 @@ abstract class Sprite(
         screenWidth = context.resources.displayMetrics.widthPixels
         getToolbarHeight(context)
         getStatusBarHeight(context)
+        canvasHeight = (11.5 * screenWidth).toInt() - toolbarHeight - statusBarHeight
     }
 
     private fun getToolbarHeight(context: Context) {

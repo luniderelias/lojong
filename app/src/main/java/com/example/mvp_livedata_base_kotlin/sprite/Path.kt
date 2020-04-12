@@ -7,17 +7,21 @@ import androidx.appcompat.content.res.AppCompatResources
 import com.example.mvp_livedata_base_kotlin.R
 import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsView
 
-class Elephant(fundamentalsView: FundamentalsView, context: Context) : Character(fundamentalsView, context) {
+class Path(fundamentalsView: FundamentalsView, context: Context) :
+    Sprite(fundamentalsView, context) {
 
-    var globalDrawable: Drawable? = null
+    private var globalDrawable: Drawable? = null
 
     init {
-        globalDrawable = AppCompatResources.getDrawable(context, R.drawable.elephant)
-        this.y = 1000
+        globalDrawable = AppCompatResources.getDrawable(context, R.drawable.first_path)
+        width = (0.9 * screenWidth).toInt()
+        height = canvasHeight / 3
+
+        y = -height + screenHeight - toolbarHeight - statusBarHeight
     }
 
     override fun draw(canvas: Canvas) {
-        dst.set(x, y, x + width, y + height)
+        dst.set(x + (0.1 * screenWidth).toInt(), y, x + width, y + height)
         globalDrawable?.bounds = dst
         globalDrawable?.draw(canvas)
     }
