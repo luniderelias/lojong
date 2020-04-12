@@ -21,6 +21,9 @@ abstract class Sprite(
     var canvasHeight: Int = 0
 
     var screenHeight: Int = 0
+    var yDpi: Float = 0F
+    var density: Float = 0F
+    var densityDpi: Int = 0
     var screenWidth: Int = 0
     var toolbarHeight: Int = 0
     var statusBarHeight: Int = 0
@@ -40,6 +43,9 @@ abstract class Sprite(
     init {
         screenHeight = context.resources.displayMetrics.heightPixels
         screenWidth = context.resources.displayMetrics.widthPixels
+        yDpi = context.resources.displayMetrics.ydpi
+        density = context.resources.displayMetrics.density
+        densityDpi = context.resources.displayMetrics.densityDpi
         getToolbarHeight(context)
         getStatusBarHeight(context)
         canvasHeight = (11.5 * screenWidth).toInt() - toolbarHeight - statusBarHeight
@@ -48,10 +54,11 @@ abstract class Sprite(
     private fun getToolbarHeight(context: Context) {
         val tv = TypedValue()
         if (context.theme.resolveAttribute(android.R.attr.actionBarSize, tv, true))
-            toolbarHeight = TypedValue.complexToDimensionPixelSize(tv.data, context.resources.displayMetrics)
+            toolbarHeight =
+                TypedValue.complexToDimensionPixelSize(tv.data, context.resources.displayMetrics)
     }
 
-    private fun getStatusBarHeight(context: Context){
+    private fun getStatusBarHeight(context: Context) {
         val resId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
         if (resId > 0) {
             statusBarHeight = context.resources.getDimensionPixelSize(resId)
@@ -65,9 +72,9 @@ abstract class Sprite(
         canvas.rotate(angle)
     }
 
-    open fun move() {
-        x += 100
-        y += 100
+    open fun move(scrollY: Int) {
+        val moveValue = (20 * density).toInt()
+        y += if(scrollY > 0 ) moveValue else - moveValue
     }
 
     open fun rotate(angle: Float) {

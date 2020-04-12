@@ -5,20 +5,29 @@ import android.os.Build
 import android.view.MotionEvent
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Point
+import android.util.AttributeSet
 import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.example.mvp_livedata_base_kotlin.base.enums.PathEnum
 import com.example.mvp_livedata_base_kotlin.sprite.Background
 import com.example.mvp_livedata_base_kotlin.sprite.Character
 import com.example.mvp_livedata_base_kotlin.sprite.Elephant
 import com.example.mvp_livedata_base_kotlin.sprite.Path
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
-class FundamentalsView(context: Context) : SurfaceView(context), SurfaceHolder.Callback {
+class FundamentalsView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : SurfaceView(context, attrs, defStyleAttr), SurfaceHolder.Callback {
 
     private var character: Character
     private var background: Background
-    private var path: Path
+    private var pathOne: Path
+    private var pathTwo: Path
+
+    private var offsetY: Int = 0
 
     private var canvas: Canvas? = null
 
@@ -26,17 +35,33 @@ class FundamentalsView(context: Context) : SurfaceView(context), SurfaceHolder.C
         isFocusable = true
         background = Background(this, context)
         character = Elephant(this, context)
-        path = Path(this, context)
+        pathOne = Path(this, context, PathEnum.FIRST_PATH)
+        pathTwo = Path(this, context, PathEnum.FIRST_PATH)
         holder.addCallback(this)
     }
 
+    private var initialClick = 0
     override fun onTouchEvent(event: MotionEvent): Boolean {
         performClick()
+        val pt = Point(event.x.toInt(), event.y.toInt())
         if (event.action == MotionEvent.ACTION_DOWN) {
-            val pointer = MotionEvent.PointerCoords()
-            event.getPointerCoords(0, pointer)
+            initialClick = pt.y
+        }
+        if (event.action == MotionEvent.ACTION_MOVE) {
+            moveScreen(pt)
         }
         return true
+    }
+
+    private fun moveScreen(pt: Point){
+        pathOne.move((pt.y - initialClick))
+        pathTwo.move((pt.y - initialClick))
+        if ((pathOne.y + pathOne.height) >= pathOne.screenHeight) {
+            draw()
+        } else {
+            pathOne.move(1)
+            pathTwo.move(1)
+        }
     }
 
     override fun performClick(): Boolean {
@@ -62,7 +87,7 @@ class FundamentalsView(context: Context) : SurfaceView(context), SurfaceHolder.C
         }
     }
 
-    fun drawOnce() {
+    private fun drawOnce() {
         draw()
     }
 
@@ -85,6 +110,7 @@ class FundamentalsView(context: Context) : SurfaceView(context), SurfaceHolder.C
     private fun drawCanvas(canvas: Canvas) {
         background.draw(canvas)
         character.draw(canvas)
-        path.draw(canvas)
+        pathOne.draw(canvas)
+        pathTwo.draw(canvas)
     }
 }

@@ -16,7 +16,6 @@ class FundamentalsFragment : BaseFragment(), FundamentalsContract.View {
 
     override val presenter by injectPresenter(this)
     override val resLayout = R.layout.fragment_main
-    private var fundamentalsView: FundamentalsView? = null
 
     companion object {
         fun newInstance() = FundamentalsFragment()
@@ -26,17 +25,6 @@ class FundamentalsFragment : BaseFragment(), FundamentalsContract.View {
         super.onViewCreated(view, savedInstanceState)
         setupViews(view)
         setupPresenter()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        fundamentalsView = FundamentalsView(container!!.context)
-        setupViews(fundamentalsView!!)
-
-        return fundamentalsView
     }
 
     private fun setupPresenter() {

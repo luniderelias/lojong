@@ -6,12 +6,12 @@ import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsView
 abstract class Character(view: FundamentalsView, context: Context) : Sprite(view,context) {
 
     init {
-        super.move()
+        super.move(0)
     }
 
-    override fun move() {
+    override fun move(scrollY: Int) {
         this.x = this.view.width / 10
 
-        super.move()
+        super.move(0)
     }
 }
