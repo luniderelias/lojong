@@ -59,11 +59,11 @@ class FundamentalsView @JvmOverloads constructor(
     private fun moveScreen(pt: Point){
         pathOne.move((pt.y - initialClick))
         pathTwo.move((pt.y - initialClick))
-        if ((pathOne.y + pathOne.height) >= pathOne.screenHeight) {
+        if ((pathOne.y + pathOne.height) >= pathOne.screenHeight && (pathTwo.y) <= (pathTwo.topBarHeight)) {
             draw()
         } else {
-            pathOne.move(1)
-            pathTwo.move(1)
+            pathOne.move(if((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
+            pathTwo.move(if((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
         }
     }
 

@@ -27,6 +27,7 @@ abstract class Sprite(
     var screenWidth: Int = 0
     var toolbarHeight: Int = 0
     var statusBarHeight: Int = 0
+    var topBarHeight: Int = 0
 
     var x: Int = 0
     var y: Int = 0
@@ -48,7 +49,8 @@ abstract class Sprite(
         densityDpi = context.resources.displayMetrics.densityDpi
         getToolbarHeight(context)
         getStatusBarHeight(context)
-        canvasHeight = (11.5 * screenWidth).toInt() - toolbarHeight - statusBarHeight
+        topBarHeight = toolbarHeight + statusBarHeight
+        canvasHeight = (11.5 * screenWidth).toInt() - topBarHeight
     }
 
     private fun getToolbarHeight(context: Context) {
