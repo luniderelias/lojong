@@ -23,6 +23,7 @@ class FundamentalsView @JvmOverloads constructor(
     private var character: Character
     private var background: Background
     private var topBackground: TopBackground
+    private var waterfall: Waterfall
     private var pathOne: Path
     private var pathTwo: Path
 
@@ -34,6 +35,7 @@ class FundamentalsView @JvmOverloads constructor(
         isFocusable = true
         background = Background(this, context)
         topBackground = TopBackground(this, context)
+        waterfall = Waterfall(this, context)
         character = Elephant(this, context)
         pathOne = Path(this, context, PathEnum.FIRST_PATH)
         pathTwo = Path(this, context, PathEnum.SECOND_PATH)
@@ -60,6 +62,7 @@ class FundamentalsView @JvmOverloads constructor(
         pathOne.move(movingFactor)
         pathTwo.move(movingFactor)
         topBackground.move(movingFactor)
+        waterfall.move(movingFactor)
         if ((pathOne.y + pathOne.height) >= pathOne.screenHeight && (topBackground.y) <= 0) {
             draw()
         } else {
@@ -114,5 +117,6 @@ class FundamentalsView @JvmOverloads constructor(
         pathOne.draw(canvas)
         pathTwo.draw(canvas)
         topBackground.draw(canvas)
+        waterfall.draw(canvas)
     }
 }
