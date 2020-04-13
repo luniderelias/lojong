@@ -12,11 +12,8 @@ import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.example.mvp_livedata_base_kotlin.base.enums.PathEnum
-import com.example.mvp_livedata_base_kotlin.sprite.Background
-import com.example.mvp_livedata_base_kotlin.sprite.Character
-import com.example.mvp_livedata_base_kotlin.sprite.Elephant
-import com.example.mvp_livedata_base_kotlin.sprite.Path
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import com.example.mvp_livedata_base_kotlin.sprite.*
 
 
 class FundamentalsView @JvmOverloads constructor(
@@ -25,6 +22,7 @@ class FundamentalsView @JvmOverloads constructor(
 
     private var character: Character
     private var background: Background
+    private var topBackground: TopBackground
     private var pathOne: Path
     private var pathTwo: Path
 
@@ -35,6 +33,7 @@ class FundamentalsView @JvmOverloads constructor(
     init {
         isFocusable = true
         background = Background(this, context)
+        topBackground = TopBackground(this, context)
         character = Elephant(this, context)
         pathOne = Path(this, context, PathEnum.FIRST_PATH)
         pathTwo = Path(this, context, PathEnum.SECOND_PATH)
@@ -57,13 +56,16 @@ class FundamentalsView @JvmOverloads constructor(
     }
 
     private fun moveScreen(pt: Point){
-        pathOne.move((pt.y - initialClick))
-        pathTwo.move((pt.y - initialClick))
-        if ((pathOne.y + pathOne.height) >= pathOne.screenHeight && (pathTwo.y) <= (pathTwo.topBarHeight)) {
+        val movingFactor = (pt.y - initialClick)
+        pathOne.move(movingFactor)
+        pathTwo.move(movingFactor)
+        topBackground.move(movingFactor)
+        if ((pathOne.y + pathOne.height) >= pathOne.screenHeight && (topBackground.y) <= 0) {
             draw()
         } else {
             pathOne.move(if((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
             pathTwo.move(if((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
+            topBackground.move(if((topBackground.y) >= 0) -1 else 1)
         }
     }
 
@@ -111,5 +113,6 @@ class FundamentalsView @JvmOverloads constructor(
         character.draw(canvas)
         pathOne.draw(canvas)
         pathTwo.draw(canvas)
+        topBackground.draw(canvas)
     }
 }
