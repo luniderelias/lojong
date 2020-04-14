@@ -9,11 +9,14 @@ import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsView
 
 class Elephant(fundamentalsView: FundamentalsView, context: Context) : Character(fundamentalsView, context) {
 
-    var globalDrawable: Drawable? = null
+    private var globalDrawable: Drawable? = null
 
     init {
         globalDrawable = AppCompatResources.getDrawable(context, R.drawable.elephant)
-        this.y = 1000
+        width = (0.1274 * screenWidth).toInt()
+        height = (0.7681 * width).toInt()
+        y = (0.85*screenHeight).toInt() - height
+        x = (0.63 * screenWidth).toInt()
     }
 
     override fun draw(canvas: Canvas) {

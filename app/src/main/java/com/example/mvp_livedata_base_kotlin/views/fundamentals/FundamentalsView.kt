@@ -20,7 +20,7 @@ class FundamentalsView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : SurfaceView(context, attrs, defStyleAttr), SurfaceHolder.Callback {
 
-    private var character: Character
+    private var character: Elephant
     private var background: Background
     private var topBackground: TopBackground
     private var waterfall: Waterfall
@@ -66,14 +66,16 @@ class FundamentalsView @JvmOverloads constructor(
         topBackground.move(movingFactor)
         waterfall.move(movingFactor)
         elephants.move(movingFactor)
+        character.move(movingFactor)
         if ((pathOne.y + pathOne.height) >= pathOne.screenHeight && (topBackground.y) <= 0) {
             draw()
         } else {
             pathOne.move(if((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
             pathTwo.move(if((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
             topBackground.move(if((topBackground.y) >= 0) -1 else 1)
-            waterfall.move(if((elephants.y) >= 0) -1 else 1)
+            waterfall.move(if((waterfall.y) >= 0) -1 else 1)
             elephants.move(if((elephants.y) >= 0) -1 else 1)
+            character.move(if((character.y) >= ((0.85*character.screenHeight) - character.height)) -1 else 1)
         }
     }
 
@@ -118,11 +120,11 @@ class FundamentalsView @JvmOverloads constructor(
 
     private fun drawCanvas(canvas: Canvas) {
         background.draw(canvas)
-        character.draw(canvas)
         pathOne.draw(canvas)
         pathTwo.draw(canvas)
         topBackground.draw(canvas)
         waterfall.draw(canvas)
         elephants.draw(canvas)
+        character.draw(canvas)
     }
 }
