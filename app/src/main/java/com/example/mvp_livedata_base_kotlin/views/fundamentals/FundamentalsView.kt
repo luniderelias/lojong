@@ -13,6 +13,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.example.mvp_livedata_base_kotlin.base.enums.PathEnum
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import com.example.mvp_livedata_base_kotlin.base.enums.ButtonStateEnum
 import com.example.mvp_livedata_base_kotlin.sprite.*
 
 
@@ -27,6 +28,7 @@ class FundamentalsView @JvmOverloads constructor(
     private var elephants: Elephants
     private var pathOne: Path
     private var pathTwo: Path
+    private var buttonOne: Button
 
     private var offsetY: Int = 0
 
@@ -41,6 +43,7 @@ class FundamentalsView @JvmOverloads constructor(
         elephants = Elephants(this, context)
         pathOne = Path(this, context, PathEnum.FIRST_PATH)
         pathTwo = Path(this, context, PathEnum.SECOND_PATH)
+        buttonOne = Button(this, context, ButtonStateEnum.FIRST_UNLOCKED, 1)
         holder.addCallback(this)
     }
 
@@ -67,6 +70,7 @@ class FundamentalsView @JvmOverloads constructor(
         waterfall.move(movingFactor)
         elephants.move(movingFactor)
         character.move(movingFactor)
+        buttonOne.move(movingFactor)
         if ((pathOne.y + pathOne.height) >= pathOne.screenHeight && (topBackground.y) <= 0) {
             draw()
         } else {
@@ -76,6 +80,7 @@ class FundamentalsView @JvmOverloads constructor(
             waterfall.move(if((waterfall.y) >= 0) -1 else 1)
             elephants.move(if((elephants.y) >= 0) -1 else 1)
             character.move(if((character.y) >= ((0.85*character.screenHeight) - character.height)) -1 else 1)
+            buttonOne.move(if((character.y) >= ((0.85*character.screenHeight) - character.height)) -1 else 1)
         }
     }
 
@@ -126,5 +131,6 @@ class FundamentalsView @JvmOverloads constructor(
         waterfall.draw(canvas)
         elephants.draw(canvas)
         character.draw(canvas)
+        buttonOne.draw(canvas)
     }
 }

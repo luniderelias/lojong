@@ -15,7 +15,7 @@ class Elephant(fundamentalsView: FundamentalsView, context: Context) : Character
         globalDrawable = AppCompatResources.getDrawable(context, R.drawable.elephant)
         width = (0.1274 * screenWidth).toInt()
         height = (0.7681 * width).toInt()
-        y = (0.85*screenHeight).toInt() - height
+        y = (0.80*screenHeight).toInt() - height
         x = (0.63 * screenWidth).toInt()
     }
 
