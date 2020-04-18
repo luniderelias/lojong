@@ -39,11 +39,12 @@ class FundamentalsView @JvmOverloads constructor(
         listOf(
             PointF(0.63f, 1.50f),
             PointF(0.63f, 5.6f),
-            PointF(0.6f, 9.6f)
+            PointF(0.6f, 9.6f),
+            PointF(0.15f, 10.4f)
         )
     private var buttonsHorizontalPositions = listOf(3, 5, 7, 11, 18, 25, 29)
     private var buttons: MutableList<Button> = mutableListOf()
-    private var currentPosition = 0
+    private var currentPosition = 2
     private var clickedPoint = Point(0, 0)
 
     private var canvas: Canvas? = null
