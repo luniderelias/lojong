@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import com.example.mvp_livedata_base_kotlin.R
+import com.example.mvp_livedata_base_kotlin.base.enums.ButtonOrientationEnum
 import com.example.mvp_livedata_base_kotlin.base.enums.ButtonStateEnum
 import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsView
 
@@ -15,6 +16,7 @@ class Button(
     fundamentalsView: FundamentalsView,
     context: Context,
     private var buttonStateEnum: ButtonStateEnum,
+    private var buttonOrientationEnum: ButtonOrientationEnum,
     day: Int,
     point: PointF
 ) :
@@ -33,8 +35,13 @@ class Button(
     }
 
     private fun setValues(point: PointF) {
-        width = (0.21 * screenWidth).toInt()
-        height = (1.0697 * width).toInt()
+        if(buttonOrientationEnum == ButtonOrientationEnum.VERTICAL) {
+            width = (0.21 * screenWidth).toInt()
+            height = (1.0697 * width).toInt()
+        } else {
+            width = (0.21 * screenWidth).toInt()
+            height = (0.98 * width).toInt()
+        }
         y = -(point.y * height).toInt() + screenHeight - topBarHeight
         x = (point.x * screenWidth).toInt()
         textX = x + (width / 2f)
@@ -42,27 +49,10 @@ class Button(
     }
 
     private fun setCurrentStateImage(context: Context) {
-        when (buttonStateEnum) {
-            ButtonStateEnum.FIRST_UNLOCKED -> {
-                globalDrawable =
-                    AppCompatResources.getDrawable(context, R.drawable.ic_first_button_unlocked)
-            }
-            ButtonStateEnum.FIRST_LOCKED -> {
-                globalDrawable =
-                    AppCompatResources.getDrawable(context, R.drawable.ic_first_button_locked)
-            }
-            ButtonStateEnum.SECOND_UNLOCKED -> {
-                globalDrawable =
-                    AppCompatResources.getDrawable(context, R.drawable.ic_first_button_locked)
-            }
-            ButtonStateEnum.SECOND_LOCKED -> {
-                globalDrawable =
-                    AppCompatResources.getDrawable(context, R.drawable.ic_first_button_locked)
-            }
-        }
+        changeState(context, buttonStateEnum)
     }
 
-    fun getState(): ButtonStateEnum{
+    fun getState(): ButtonStateEnum {
         return buttonStateEnum
     }
 
@@ -70,12 +60,23 @@ class Button(
         this.buttonStateEnum = buttonStateEnum
         when (this.buttonStateEnum) {
             ButtonStateEnum.FIRST_UNLOCKED -> {
-                globalDrawable =
-                    AppCompatResources.getDrawable(context, R.drawable.ic_first_button_unlocked)
+                globalDrawable = AppCompatResources.getDrawable(
+                    context,
+                    if (buttonOrientationEnum == ButtonOrientationEnum.VERTICAL)
+                        R.drawable.ic_first_button_unlocked
+                    else
+                        R.drawable.ic_first_button_horizontal_unlocked
+                )
             }
             ButtonStateEnum.FIRST_LOCKED -> {
                 globalDrawable =
-                    AppCompatResources.getDrawable(context, R.drawable.ic_first_button_locked)
+                    AppCompatResources.getDrawable(
+                        context,
+                        if (buttonOrientationEnum == ButtonOrientationEnum.VERTICAL)
+                            R.drawable.ic_first_button_locked
+                        else
+                            R.drawable.ic_first_button_horizontal_locked
+                    )
             }
             ButtonStateEnum.SECOND_UNLOCKED -> {
                 globalDrawable =

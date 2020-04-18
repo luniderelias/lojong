@@ -1,6 +1,5 @@
 package com.example.mvp_livedata_base_kotlin.views.fundamentals
 
-import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Build
 import android.view.MotionEvent
@@ -13,10 +12,10 @@ import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
+import com.example.mvp_livedata_base_kotlin.base.enums.ButtonOrientationEnum
 import com.example.mvp_livedata_base_kotlin.base.enums.PathEnum
 import com.example.mvp_livedata_base_kotlin.base.enums.ButtonStateEnum
 import com.example.mvp_livedata_base_kotlin.sprite.*
-import java.util.ArrayList
 
 class FundamentalsView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -29,8 +28,20 @@ class FundamentalsView @JvmOverloads constructor(
     private var elephants: Elephants
     private var pathOne: Path
     private var pathTwo: Path
-    private var buttonPositions = listOf(PointF(0.59f, 1.8f), PointF(0.59f, 3.5f))
-    private var elephantPositions = listOf(PointF(0.63f, 1.50f), PointF(0.63f, 4.0f))
+    private var buttonPositions =
+        listOf(
+            PointF(0.59f, 1.8f),
+            PointF(0.59f, 3.5f),
+            PointF(0.33f, 4.95f),
+            PointF(0.075f, 5.65f)
+        )
+    private var elephantPositions =
+        listOf(
+            PointF(0.63f, 1.50f),
+            PointF(0.63f, 5.6f),
+            PointF(0.6f, 9.6f)
+        )
+    private var buttonsHorizontalPositions = listOf(3, 5, 7, 11, 18, 25, 29)
     private var buttons: MutableList<Button> = mutableListOf()
     private var currentPosition = 0
     private var clickedPoint = Point(0, 0)
@@ -47,10 +58,27 @@ class FundamentalsView @JvmOverloads constructor(
         pathOne = Path(this, context, PathEnum.FIRST_PATH)
         pathTwo = Path(this, context, PathEnum.SECOND_PATH)
         buttonPositions.forEachIndexed { index, pointF ->
-            buttons.add(Button(this, context, getCurrentButtonStateEnum(index), index + 1, pointF))
+            val currentDay = index + 1
+            buttons.add(
+                Button(
+                    this,
+                    context,
+                    getCurrentButtonStateEnum(index),
+                    getButtonOrientation(currentDay),
+                    currentDay,
+                    pointF
+                )
+            )
         }
         setOnTouchListener(this)
         holder.addCallback(this)
+    }
+
+    private fun getButtonOrientation(index: Int): ButtonOrientationEnum {
+        return if (buttonsHorizontalPositions.any { it == index })
+            ButtonOrientationEnum.HORIZONTAL
+        else
+            ButtonOrientationEnum.VERTICAL
     }
 
     private fun getCurrentButtonStateEnum(index: Int): ButtonStateEnum {
@@ -67,12 +95,10 @@ class FundamentalsView @JvmOverloads constructor(
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         performClick()
         clickedPoint = Point(event.x.toInt(), event.y.toInt())
-        if (event.action == MotionEvent.ACTION_DOWN) {
+
+        if (event.action == MotionEvent.ACTION_DOWN)
             initialClick = clickedPoint
-        }
-        if (event.action == MotionEvent.ACTION_MOVE) {
-            moveScreen(clickedPoint)
-        }
+
         buttons.forEachIndexed { index, button ->
             if (isButtonLocked(button))
                 return@forEachIndexed
@@ -80,11 +106,15 @@ class FundamentalsView @JvmOverloads constructor(
                 goToNextPosition(index)
             }
         }
+
+        if (event.action == MotionEvent.ACTION_MOVE)
+            moveScreen(clickedPoint)
+
         return true
     }
 
     private fun goToNextPosition(index: Int) {
-        if (index < buttonPositions.size - 1) {
+        if (index < buttonPositions.size) {
             val nextPosition = index + 1
             buttons[nextPosition].changeState(context, unlockIndexButtonEnum(nextPosition))
             character.moveToPosition(elephantPositions[nextPosition])
@@ -108,8 +138,8 @@ class FundamentalsView @JvmOverloads constructor(
         topBackground.move(movingFactor)
         waterfall.move(movingFactor)
         elephants.move(movingFactor)
-        character.move(movingFactor)
         buttons.forEach { it.move(movingFactor) }
+        character.move(movingFactor)
         if ((pathOne.y + pathOne.height) >= (pathOne.screenHeight - pathOne.topBarHeight) && (topBackground.y) <= 0) {
             draw()
         } else {
