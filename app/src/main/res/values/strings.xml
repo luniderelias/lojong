@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">mvp-livedata-base-kotlin</string>
+    <string name="day">Dia %d</string>
 </resources>
