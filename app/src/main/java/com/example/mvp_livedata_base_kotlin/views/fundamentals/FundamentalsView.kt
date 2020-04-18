@@ -117,7 +117,10 @@ class FundamentalsView @JvmOverloads constructor(
         if (index < buttonPositions.size) {
             val nextPosition = index + 1
             buttons[nextPosition].changeState(context, unlockIndexButtonEnum(nextPosition))
-            character.moveToPosition(elephantPositions[nextPosition])
+            if(nextPosition > currentPosition) {
+                character.moveToPosition(elephantPositions[nextPosition])
+                currentPosition = nextPosition
+            }
             draw()
         }
     }
