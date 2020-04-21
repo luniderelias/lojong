@@ -2,7 +2,10 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#C27B88</color>
     <color name="fundamentals_background_color">#9bda5e</color>
     <color name="brown_text">#8B572A</color>
+    <color name="colorTranslucidOverlay">#88000000</color>
+    <color name="colorBottomNavigationItemDisabled">#979797</color>
+    <color name="colorBottomNavigationBackground">#F7F5F6</color>
 </resources>

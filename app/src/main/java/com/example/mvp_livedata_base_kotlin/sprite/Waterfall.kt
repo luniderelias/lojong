@@ -18,7 +18,7 @@ class Waterfall(fundamentalsView: FundamentalsView, context: Context) :
         width = (0.70915 * screenWidth).toInt()
         height = (0.799089 * width).toInt()
         x += (0.5103 * screenWidth).toInt()
-        y = - canvasHeight + (0.9 * screenHeight).toInt() - topBarHeight
+        y = - canvasHeight + (0.9 * screenHeight).toInt() - topBarHeight - bottomBarHeight
     }
 
     override fun draw(canvas: Canvas) {

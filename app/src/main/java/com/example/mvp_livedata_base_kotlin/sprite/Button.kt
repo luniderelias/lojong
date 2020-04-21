@@ -42,7 +42,7 @@ class Button(
             width = (0.21 * screenWidth).toInt()
             height = (0.98 * width).toInt()
         }
-        y = -(point.y * height).toInt() + screenHeight - topBarHeight
+        y = -(point.y * height).toInt() + screenHeight - topBarHeight - bottomBarHeight
         x = (point.x * screenWidth).toInt()
         textX = x + (width / 2f)
         textY = (2.1f * height / 3f)

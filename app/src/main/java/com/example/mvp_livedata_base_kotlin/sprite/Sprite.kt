@@ -28,9 +28,11 @@ abstract class Sprite(
     var toolbarHeight: Int = 0
     var statusBarHeight: Int = 0
     var topBarHeight: Int = 0
+    var bottomBarHeight: Int = 0
 
     var x: Int = 0
     var y: Int = 0
+    var offsetT = 0
     var angle: Float = 0F
     protected var src: Rect = Rect()
     protected var dst: Rect = Rect()
@@ -49,6 +51,7 @@ abstract class Sprite(
         densityDpi = context.resources.displayMetrics.densityDpi
         getToolbarHeight(context)
         getStatusBarHeight(context)
+        getBottomBarHeight(context)
         topBarHeight = toolbarHeight + statusBarHeight
         canvasHeight = (11.5 * screenWidth).toInt() - topBarHeight
     }
@@ -64,6 +67,13 @@ abstract class Sprite(
         val resId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
         if (resId > 0) {
             statusBarHeight = context.resources.getDimensionPixelSize(resId)
+        }
+    }
+
+    private fun getBottomBarHeight(context: Context) {
+        val resId = context.resources.getIdentifier("navigation_bar_height", "dimen", "android")
+        if (resId > 0) {
+            bottomBarHeight = context.resources.getDimensionPixelSize(resId)
         }
     }
 

@@ -154,7 +154,7 @@ class FundamentalsView @JvmOverloads constructor(
         elephants.move(movingFactor)
         buttons.forEach { it.move(movingFactor) }
         character.move(movingFactor)
-        if ((pathOne.y + pathOne.height) >= (pathOne.screenHeight - pathOne.topBarHeight) && (topBackground.y) <= 0) {
+        if ((pathOne.y + pathOne.height) >= (pathOne.screenHeight - pathOne.topBarHeight - pathOne.bottomBarHeight) && (topBackground.y) <= 0) {
             draw()
         } else {
             pathOne.move(if ((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)

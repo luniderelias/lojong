@@ -22,14 +22,14 @@ class Path(fundamentalsView: FundamentalsView, context: Context, pathEnum: PathE
             PathEnum.FIRST_PATH -> {
                 globalDrawable = AppCompatResources.getDrawable(context, R.drawable.first_path)
                 height = canvasHeight / 3
-                y = - height + screenHeight - topBarHeight
+                y = - height + screenHeight - topBarHeight - bottomBarHeight
                 width = (0.8 * screenWidth).toInt()
                 x += (0.1 * screenWidth).toInt()
             }
             PathEnum.SECOND_PATH -> {
                 globalDrawable = AppCompatResources.getDrawable(context, R.drawable.second_path)
                 height = (2 * canvasHeight) / 3
-                y = - height - (canvasHeight / 3) + screenHeight - topBarHeight
+                y = - height - (canvasHeight / 3) + screenHeight - topBarHeight - bottomBarHeight
                 x += (0.0422015 * screenWidth).toInt()
                 width = screenWidth
             }

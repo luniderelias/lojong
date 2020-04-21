@@ -23,8 +23,7 @@ val appModule = module {
 
     factory { (view: MainContract.View) ->
         MainPresenter(
-            view = view,
-            repository = get()
+            view = view
         )
     } bind MainContract.Presenter::class
 

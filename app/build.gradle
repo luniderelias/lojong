@@ -45,6 +45,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$v.androidx_recycler_view"
     implementation "androidx.fragment:fragment:$v.androidx_fragment"
     implementation "androidx.constraintlayout:constraintlayout:$v.constraint_layout"
+    implementation "com.google.android.material:material:$v.android_material"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

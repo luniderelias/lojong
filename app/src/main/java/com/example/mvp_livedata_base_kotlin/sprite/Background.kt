@@ -13,8 +13,8 @@ class Background(view: FundamentalsView, context: Context) : Sprite(view, contex
 
     init {
         width = screenWidth
-        height = canvasHeight
-        y = - height + screenHeight - toolbarHeight - statusBarHeight
+        height = canvasHeight - topBarHeight
+        y = - height + screenHeight
 
         backgroundColor = ResourcesCompat.getColor(context.resources, R.color.fundamentals_background_color, null)
     }

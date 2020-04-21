@@ -29,7 +29,7 @@ class Elephant(
     }
 
     private fun setPosition() {
-        y = -(point.y * height).toInt() + screenHeight - topBarHeight
+        y = -(point.y * height).toInt() + screenHeight - topBarHeight - bottomBarHeight
         x = (point.x * screenWidth).toInt()
         initY = y
     }
