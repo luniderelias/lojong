@@ -6,28 +6,54 @@ import android.graphics.PointF
 import android.graphics.drawable.Drawable
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.mvp_livedata_base_kotlin.R
+import com.example.mvp_livedata_base_kotlin.base.enums.ElephantOrientationEnum
 import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsView
 
-class Elephant(fundamentalsView: FundamentalsView,
-               context: Context,
-               private var point: PointF
+class Elephant(
+    fundamentalsView: FundamentalsView,
+    context: Context,
+    private var point: PointF,
+    private var elephantOrientationEnum: ElephantOrientationEnum
 ) : Character(fundamentalsView, context) {
+
+    private var initY = 0
+    private var elephantToRightPositions = listOf(4, 5, 8, 9, 10, 11)
 
     private var globalDrawable: Drawable? = null
 
     init {
-        globalDrawable = AppCompatResources.getDrawable(context, R.drawable.elephant)
+        changeElephantOrientation(context, 0)
         width = (0.1274 * screenWidth).toInt()
         height = (0.7681 * width).toInt()
         setPosition()
     }
 
-    private fun setPosition(){
+    private fun setPosition() {
         y = -(point.y * height).toInt() + screenHeight - topBarHeight
         x = (point.x * screenWidth).toInt()
+        initY = y
     }
 
-    fun moveToPosition(point: PointF){
+    fun changeElephantOrientation(context: Context, index: Int){
+        elephantOrientationEnum = getElephantOrientation(index)
+        globalDrawable = AppCompatResources.getDrawable(
+            context,
+            if (elephantOrientationEnum == ElephantOrientationEnum.LEFT)
+                R.drawable.ic_elephant_to_left
+            else
+                R.drawable.ic_elephant_to_right
+        )
+    }
+
+    private fun getElephantOrientation(index: Int): ElephantOrientationEnum {
+        return if (elephantToRightPositions.any { it == index })
+            ElephantOrientationEnum.RIGHT
+        else
+            ElephantOrientationEnum.LEFT
+    }
+
+    fun moveToPosition(point: PointF) {
+        point.y += (y - initY)
         this.point = point
         setPosition()
     }

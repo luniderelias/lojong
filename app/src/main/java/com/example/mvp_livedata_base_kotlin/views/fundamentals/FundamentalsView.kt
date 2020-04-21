@@ -15,6 +15,7 @@ import android.view.View
 import com.example.mvp_livedata_base_kotlin.base.enums.ButtonOrientationEnum
 import com.example.mvp_livedata_base_kotlin.base.enums.PathEnum
 import com.example.mvp_livedata_base_kotlin.base.enums.ButtonStateEnum
+import com.example.mvp_livedata_base_kotlin.base.enums.ElephantOrientationEnum
 import com.example.mvp_livedata_base_kotlin.sprite.*
 
 class FundamentalsView @JvmOverloads constructor(
@@ -33,18 +34,21 @@ class FundamentalsView @JvmOverloads constructor(
             PointF(0.59f, 1.8f),
             PointF(0.59f, 3.5f),
             PointF(0.33f, 4.95f),
-            PointF(0.075f, 5.65f)
+            PointF(0.075f, 5.65f),
+            PointF(0.39f, 7.35f),
+            PointF(0.719f, 7.9f)
         )
     private var elephantPositions =
         listOf(
             PointF(0.63f, 1.50f),
             PointF(0.63f, 5.6f),
             PointF(0.6f, 9.6f),
-            PointF(0.15f, 10.4f)
+            PointF(0.15f, 10.4f),
+            PointF(0.18f, 14.8f)
         )
     private var buttonsHorizontalPositions = listOf(3, 5, 7, 11, 18, 25, 29)
     private var buttons: MutableList<Button> = mutableListOf()
-    private var currentPosition = 2
+    private var currentPosition = 0
     private var clickedPoint = Point(0, 0)
 
     private var canvas: Canvas? = null
@@ -54,7 +58,12 @@ class FundamentalsView @JvmOverloads constructor(
         background = Background(this, context)
         topBackground = TopBackground(this, context)
         waterfall = Waterfall(this, context)
-        character = Elephant(this, context, elephantPositions[currentPosition])
+        character = Elephant(
+            this,
+            context,
+            elephantPositions[currentPosition],
+            ElephantOrientationEnum.LEFT
+        )
         elephants = Elephants(this, context)
         pathOne = Path(this, context, PathEnum.FIRST_PATH)
         pathTwo = Path(this, context, PathEnum.SECOND_PATH)
@@ -118,8 +127,9 @@ class FundamentalsView @JvmOverloads constructor(
         if (index < buttonPositions.size) {
             val nextPosition = index + 1
             buttons[nextPosition].changeState(context, unlockIndexButtonEnum(nextPosition))
-            if(nextPosition > currentPosition) {
+            if (nextPosition > currentPosition) {
                 character.moveToPosition(elephantPositions[nextPosition])
+                character.changeElephantOrientation(context, nextPosition)
                 currentPosition = nextPosition
             }
             draw()
