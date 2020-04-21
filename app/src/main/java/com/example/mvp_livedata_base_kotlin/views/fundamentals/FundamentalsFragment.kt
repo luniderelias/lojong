@@ -1,16 +1,17 @@
 package com.example.mvp_livedata_base_kotlin.views.fundamentals
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.setContentView
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import com.example.mvp_livedata_base_kotlin.R
 import com.example.mvp_livedata_base_kotlin.base.BaseFragment
 import com.example.mvp_livedata_base_kotlin.base.extensions.injectPresenter
 import com.example.mvp_livedata_base_kotlin.base.extensions.shouldShowView
+import com.example.mvp_livedata_base_kotlin.views.main.MainActivity
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlinx.android.synthetic.main.fundamentals_toolbar.view.*
 
 class FundamentalsFragment : BaseFragment(), FundamentalsContract.View {
 
@@ -25,6 +26,18 @@ class FundamentalsFragment : BaseFragment(), FundamentalsContract.View {
         super.onViewCreated(view, savedInstanceState)
         setupViews(view)
         setupPresenter()
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
+        val toolbar = fundamentalsToolbar
+        activity?.let {
+            val mainActivity = it as MainActivity
+            mainActivity.setSupportActionBar(toolbar as Toolbar)
+            mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            toolbar.tsTxtTitle.text = getString(R.string.fundamentals)
+        }
     }
 
     private fun setupPresenter() {
@@ -34,6 +47,11 @@ class FundamentalsFragment : BaseFragment(), FundamentalsContract.View {
 
     override fun initPresenter() {
         presenter.init()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.let { (it as MainActivity).changeActionBar() }
     }
 
     override fun observeData() {

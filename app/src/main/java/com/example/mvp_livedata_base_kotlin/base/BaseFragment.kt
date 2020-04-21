@@ -3,6 +3,7 @@ package com.example.mvp_livedata_base_kotlin.base
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

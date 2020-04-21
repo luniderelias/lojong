@@ -2,6 +2,7 @@ package com.example.mvp_livedata_base_kotlin.base.application
 
 import android.app.Application
 import android.content.Context
+import com.example.mvp_livedata_base_kotlin.R
 import com.example.mvp_livedata_base_kotlin.base.appModule
 import com.example.mvp_livedata_base_kotlin.base.dispatcherModule
 import org.koin.android.ext.android.inject

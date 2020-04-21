@@ -1,9 +1,13 @@
 package com.example.mvp_livedata_base_kotlin.views.main
 
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toolbar
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentTransaction
 import com.example.mvp_livedata_base_kotlin.R
 import com.example.mvp_livedata_base_kotlin.base.extensions.injectPresenter
@@ -16,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
-BottomNavigationView.OnNavigationItemSelectedListener, MainContract.View,
+    BottomNavigationView.OnNavigationItemSelectedListener, MainContract.View,
     TabNavigable {
 
     override val presenter by injectPresenter(this)
@@ -38,6 +42,14 @@ BottomNavigationView.OnNavigationItemSelectedListener, MainContract.View,
         mainBottomNavigation.setOnNavigationItemSelectedListener(this)
 
         setupViews()
+    }
+
+    fun changeActionBar() {
+        actionBar?.setBackgroundDrawable(
+            ColorDrawable(
+                ResourcesCompat.getColor(resources, R.color.colorAccent, null)
+            )
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
@@ -77,7 +89,10 @@ BottomNavigationView.OnNavigationItemSelectedListener, MainContract.View,
     }
 
     private fun addExtraFragments(fragmentTransaction: FragmentTransaction) {
-        fragmentTransaction.add(R.id.mainTabFundamentalsContainer, FundamentalsFragment.newInstance())
+        fragmentTransaction.add(
+            R.id.mainTabFundamentalsContainer,
+            FundamentalsFragment.newInstance()
+        )
         fragmentTransaction.add(R.id.mainTabInsightContainer, InsightFragment.newInstance())
     }
 
