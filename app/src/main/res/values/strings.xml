@@ -3,4 +3,7 @@
     <string name="day">Dia %d</string>
     <string name="insight">Insight</string>
     <string name="fundamentals">Fundamentos</string>
+    <string name="videos">Vídeos</string>
+    <string name="articles">Artigos</string>
+    <string name="quotes">Citações</string>
 </resources>

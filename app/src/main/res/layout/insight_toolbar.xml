@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:paddingTop="@dimen/statusBarHeight"
+    app:contentInsetStartWithNavigation="0dp">
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal_margin"
+        android:background="@drawable/round_tabs_layout"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorColor="@color/white"
+        app:tabSelectedTextColor="@color/white">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/videosTab"
+            style="@style/InsightTabBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/videos" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/articlesTab"
+            style="@style/InsightTabBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/articles" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/quotesTab"
+            style="@style/InsightTabBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quotes" />
+    </com.google.android.material.tabs.TabLayout>
+
+</androidx.appcompat.widget.Toolbar>

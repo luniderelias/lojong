@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#C27B88</color>
-    <color name="colorPrimaryDark">#C27B88</color>
+    <color name="colorPrimaryDark">#B25B78</color>
     <color name="colorAccent">#C27B88</color>
     <color name="fundamentals_background_color">#9bda5e</color>
     <color name="fundamentals_toolbar_color">#77CA88</color>
