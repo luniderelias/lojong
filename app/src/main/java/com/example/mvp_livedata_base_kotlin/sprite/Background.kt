@@ -8,7 +8,6 @@ import com.example.mvp_livedata_base_kotlin.R
 
 class Background(view: FundamentalsView, context: Context) : Sprite(view, context) {
 
-
     private var backgroundColor = 0
 
     init {

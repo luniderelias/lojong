@@ -5,6 +5,9 @@ import android.content.Context
 import com.example.mvp_livedata_base_kotlin.R
 import com.example.mvp_livedata_base_kotlin.base.appModule
 import com.example.mvp_livedata_base_kotlin.base.dispatcherModule
+import com.example.mvp_livedata_base_kotlin.base.extensions.repositoryModule
+import com.example.mvp_livedata_base_kotlin.base.featureModule
+import com.example.mvp_livedata_base_kotlin.base.retrofitClientModule
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.startKoin
 
@@ -18,7 +21,10 @@ class App : Application() {
 
     private val modules = listOf(
         appModule,
-        dispatcherModule
+        dispatcherModule,
+        repositoryModule,
+        featureModule,
+        retrofitClientModule
     )
 
     override fun onCreate() {

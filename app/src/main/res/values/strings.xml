@@ -6,4 +6,6 @@
     <string name="videos">Vídeos</string>
     <string name="articles">Artigos</string>
     <string name="quotes">Citações</string>
+    <string name="videos_not_found">Desculpe, não encontramos nenhum video</string>
+    <string name="videos_load_failed">Não conseguimos carregar os videos</string>
 </resources>

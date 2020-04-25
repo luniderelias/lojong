@@ -7,6 +7,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+
+    def STRING = "String"
+    def BASE_API_URL = "BASE_API_URL"
+    def AUTHORIZATION = "AUTHORIZATION"
+
     dataBinding { enabled = true }
     compileSdkVersion tools.compileSdkVersion
     buildToolsVersion "29.0.3"
@@ -18,6 +23,8 @@ android {
         versionName tools.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        buildConfigField STRING, BASE_API_URL, "\"https://devlojong.com/api/\""
+        buildConfigField STRING, AUTHORIZATION, "\"Bearer test\""
     }
     buildTypes {
         release {
@@ -47,6 +54,13 @@ dependencies {
     implementation "androidx.fragment:fragment:$v.androidx_fragment"
     implementation "androidx.constraintlayout:constraintlayout:$v.constraint_layout"
     implementation "com.google.android.material:material:$v.android_material"
+    implementation "com.github.bumptech.glide:glide:$v.glide"
+
+    // region Networking
+    implementation "com.squareup.okhttp3:logging-interceptor:$v.okhttp"
+    implementation "com.squareup.retrofit2:retrofit:$v.retrofit"
+    implementation "com.google.code.gson:gson:$v.gson"
+    implementation "com.squareup.retrofit2:converter-gson:$v.retrofit"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
