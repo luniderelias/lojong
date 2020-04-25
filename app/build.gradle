@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 android {
     dataBinding { enabled = true }
     compileSdkVersion tools.compileSdkVersion
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId tools.applicationId
         minSdkVersion tools.minSdkVersion
@@ -17,6 +17,7 @@ android {
         versionCode tools.versionCode
         versionName tools.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {

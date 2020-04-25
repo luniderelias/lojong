@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="normal_margin">16dp</dimen>
-    <dimen name="app_font_size">14sp</dimen>
+    <dimen name="large_margin">22dp</dimen>
+    <dimen name="app_font_size">16sp</dimen>
+    <dimen name="app_title_size">24sp</dimen>
     <dimen name="toolbar_icon_size">24dp</dimen>
     <dimen name="font_title_size">18sp</dimen>
     <dimen name="font_tab_title_size">16sp</dimen>
     <dimen name="statusBarHeight">24dp</dimen>
-    <dimen name="small_padding">12dp</dimen>
+    <dimen name="small_padding">6dp</dimen>
+    <dimen name="normal_padding">12dp</dimen>
+    <dimen name="rounded_corners">6dp</dimen>
 </resources>

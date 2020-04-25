@@ -9,6 +9,7 @@
     app:contentInsetStartWithNavigation="0dp">
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/insightTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/normal_margin"

@@ -16,6 +16,17 @@
     <style name="Text">
         <item name="android:fontFamily">@font/asap_regular</item>
         <item name="android:textSize">@dimen/app_font_size</item>
+        <item name="android:textColor">@color/custom_text_color</item>
+    </style>
+
+    <style name="Text.Bold">
+        <item name="android:fontFamily">@font/asap_bold</item>
+        <item name="android:textSize">@dimen/app_font_size</item>
+    </style>
+
+    <style name="Text.Title">
+        <item name="android:fontFamily">@font/asap_bold</item>
+        <item name="android:textSize">@dimen/app_title_size</item>
     </style>
 
     <style name="Text.ToolbarTitle" parent="Text">

@@ -11,4 +11,6 @@
     <color name="colorBottomNavigationBackground">#F7F5F6</color>
     <color name="white">#F7F5F6</color>
     <color name="fundamentals_top_bar">#76BE93</color>
+    <color name="custom_text_color">#80848F</color>
+    <color name="gray_background">#ECECEC</color>
 </resources>
