@@ -1,7 +1,10 @@
 package com.example.mvp_livedata_base_kotlin.views.insight.videos
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvp_livedata_base_kotlin.R
@@ -16,8 +19,7 @@ class VideosFragment : BaseFragment(), VideosContract.View {
     override val resLayout = R.layout.fragment_videos
     override val presenter by injectPresenter(this)
 
-    private var adapter = VideoItemsAdapter(this::onShareButtonClick, this::onPlayVideoClick)
-
+    private lateinit var adapter: VideoItemsAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
@@ -53,14 +55,26 @@ class VideosFragment : BaseFragment(), VideosContract.View {
     }
 
     override fun onShareButtonClick(videoItem: VideoItem, position: Int){
-
+        val shareBody = videoItem.description + "\n" + videoItem.url2
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
+        startActivity(
+            Intent.createChooser(
+                sharingIntent,
+                getString(R.string.share_by)
+            )
+        )
     }
 
     override fun onPlayVideoClick(videoItem: VideoItem, position: Int){
-
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(Uri.parse(videoItem.aws_url), "video/*")
+        activity?.let { ContextCompat.startActivity(it.applicationContext, intent, null) }
     }
 
     private fun setupRecyclerView(){
+        adapter = VideoItemsAdapter(this::onPlayVideoClick, this::onShareButtonClick)
         videosRecyclerView?.adapter = adapter
         videosRecyclerView?.layoutManager = LinearLayoutManager(activity)
     }

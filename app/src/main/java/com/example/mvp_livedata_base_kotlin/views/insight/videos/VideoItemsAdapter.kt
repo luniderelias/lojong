@@ -16,8 +16,9 @@ class VideoItemsAdapter(
     override fun bind(itemView: View, item: VideoItem, position: Int) {
         itemView.videoTitle.text = item.name
         itemView.videoImage.loadImage(item.image_url, false, R.drawable.ic_elephants)
-        itemView.platVideoButton.setOnClickListener { playVideoAction.invoke(item, position) }
+        itemView.playVideoButton.setOnClickListener { playVideoAction.invoke(item, position) }
         itemView.videoDescription.text = item.description
         itemView.shareButton.setOnClickListener { shareAction.invoke(item, position) }
     }
+
 }

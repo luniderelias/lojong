@@ -32,7 +32,8 @@
         app:layout_constraintDimensionRatio="H,2:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoTitle">
+        app:layout_constraintTop_toBottomOf="@+id/videoTitle"
+        android:background="@color/white">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/videoImage"
@@ -42,7 +43,7 @@
             android:scaleType="centerCrop"/>
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/platVideoButton"
+            android:id="@+id/playVideoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
