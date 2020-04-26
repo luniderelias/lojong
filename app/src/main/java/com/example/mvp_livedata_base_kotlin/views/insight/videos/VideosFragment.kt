@@ -13,17 +13,22 @@ import com.example.mvp_livedata_base_kotlin.base.extensions.injectPresenter
 import com.example.mvp_livedata_base_kotlin.base.extensions.isVisible
 import com.example.mvp_livedata_base_kotlin.data.model.VideoItem
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_videos.*
+import kotlinx.android.synthetic.main.fragment_insight_base.*
 
 class VideosFragment : BaseFragment(), VideosContract.View {
-    override val resLayout = R.layout.fragment_videos
+    override val resLayout = R.layout.fragment_insight_base
     override val presenter by injectPresenter(this)
 
     private lateinit var adapter: VideoItemsAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setViews()
         setupRecyclerView()
         presenter.loadVideos()
+    }
+
+    override fun setViews() {
+        emptyItemsTextView?.text = getString(R.string.videos_not_found)
     }
 
     override fun onLoadVideosSuccessful(items: List<VideoItem>) {
@@ -31,15 +36,22 @@ class VideosFragment : BaseFragment(), VideosContract.View {
     }
 
     override fun handleItemsVisibility(shouldShowItems: Boolean) {
-        videosRecyclerView?.isVisible = shouldShowItems
-        noVideosTextView?.isVisible = !shouldShowItems
+        itemsRecyclerView?.isVisible = shouldShowItems
+        emptyItemsTextView?.isVisible = !shouldShowItems
     }
 
     override fun onLoadVideosError() {
-        Snackbar.make(videosCoordinatorLayout,getString(R.string.videos_load_failed),Snackbar.LENGTH_LONG)
-            .setBackgroundTint(ResourcesCompat.getColor(resources, R.color.design_default_color_error, null))
-            .setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
-            .show()
+        Snackbar.make(
+            insightBaseCoordinatorLayout,
+            getString(R.string.videos_load_failed),
+            Snackbar.LENGTH_LONG
+        ).setBackgroundTint(
+            ResourcesCompat.getColor(
+                resources,
+                R.color.design_default_color_error,
+                null
+            )
+        ).setTextColor(ResourcesCompat.getColor(resources, R.color.white, null)).show()
     }
 
     override fun showLoading() {
@@ -54,7 +66,7 @@ class VideosFragment : BaseFragment(), VideosContract.View {
         adapter.data = items
     }
 
-    override fun onShareButtonClick(videoItem: VideoItem, position: Int){
+    override fun onShareButtonClick(videoItem: VideoItem, position: Int) {
         val shareBody = videoItem.description + "\n" + videoItem.url2
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
@@ -67,15 +79,15 @@ class VideosFragment : BaseFragment(), VideosContract.View {
         )
     }
 
-    override fun onPlayVideoClick(videoItem: VideoItem, position: Int){
+    override fun onPlayVideoClick(videoItem: VideoItem, position: Int) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(Uri.parse(videoItem.aws_url), "video/*")
         activity?.let { ContextCompat.startActivity(it.applicationContext, intent, null) }
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         adapter = VideoItemsAdapter(this::onPlayVideoClick, this::onShareButtonClick)
-        videosRecyclerView?.adapter = adapter
-        videosRecyclerView?.layoutManager = LinearLayoutManager(activity)
+        itemsRecyclerView?.adapter = adapter
+        itemsRecyclerView?.layoutManager = LinearLayoutManager(activity)
     }
 }

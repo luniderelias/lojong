@@ -4,16 +4,14 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class VideoItem(
+class ArticleItem(
     val id: Int,
-    val name: String,
-    val description: String,
-    val file: String,
+    val text: String,
+    val title: String,
+    val author_name: String,
     val url: String,
-    val url2: String,
-    val aws_url: String,
-    val image: String,
     val image_url: String,
     val premium: Int,
-    val order: Int
+    val order: Int,
+    val image: String
 ) : Parcelable

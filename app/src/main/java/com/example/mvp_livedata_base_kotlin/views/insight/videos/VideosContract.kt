@@ -6,6 +6,7 @@ import com.example.mvp_livedata_base_kotlin.data.model.VideoItem
 
 interface VideosContract {
     interface View : BaseView<Presenter> {
+        fun setViews()
         fun showLoading()
         fun hideLoading()
         fun updateAdapter(items: List<VideoItem>)

@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/videoTitle"
+        android:id="@+id/articleTitle"
         style="@style/Text.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         tools:text="Título Vídeo 1" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/videoCardView"
+        android:id="@+id/articleCardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/large_margin"
@@ -32,28 +32,20 @@
         app:layout_constraintDimensionRatio="H,2:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoTitle"
+        app:layout_constraintTop_toBottomOf="@+id/articleTitle"
         android:background="@color/white">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/videoImage"
+            android:id="@+id/articleImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_elephants"
             android:scaleType="centerCrop"/>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/playVideoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_play_video"
-            android:scaleType="centerCrop"/>
-
     </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/videoDescription"
+        android:id="@+id/articleDescription"
         style="@style/Text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -65,11 +57,11 @@
         android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoCardView"
+        app:layout_constraintTop_toBottomOf="@+id/articleCardView"
         tools:text="Neste episódio, falamos sobre as recentes pesquisas dos efeitos da prática de meditação e como funciona este treino da mente." />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/shareVideoButton"
+        android:id="@+id/shareArticleButton"
         style="@style/Text.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -90,7 +82,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoDescription"
+        app:layout_constraintTop_toBottomOf="@+id/articleDescription"
         android:text="@string/share" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

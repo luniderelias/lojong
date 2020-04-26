@@ -18,7 +18,7 @@ class VideoItemsAdapter(
         itemView.videoImage.loadImage(item.image_url, false, R.drawable.ic_elephants)
         itemView.playVideoButton.setOnClickListener { playVideoAction.invoke(item, position) }
         itemView.videoDescription.text = item.description
-        itemView.shareButton.setOnClickListener { shareAction.invoke(item, position) }
+        itemView.shareVideoButton.setOnClickListener { shareAction.invoke(item, position) }
     }
 
 }

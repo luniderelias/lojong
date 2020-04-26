@@ -8,6 +8,8 @@ import com.example.mvp_livedata_base_kotlin.data.remote.LojongRepository
 import com.example.mvp_livedata_base_kotlin.data.remote.LojongRepositoryImpl
 import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsContract
 import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsPresenter
+import com.example.mvp_livedata_base_kotlin.views.insight.articles.ArticlesContract
+import com.example.mvp_livedata_base_kotlin.views.insight.articles.ArticlesPresenter
 import com.example.mvp_livedata_base_kotlin.views.insight.videos.VideosContract
 import com.example.mvp_livedata_base_kotlin.views.insight.videos.VideosPresenter
 import com.example.mvp_livedata_base_kotlin.views.main.MainContract
@@ -44,10 +46,16 @@ val appModule = module {
     factory { (view: VideosContract.View) ->
         VideosPresenter(
             view = view,
-            lojongRepository = get(),
-            dispatcherContext = get()
+            lojongRepository = get()
         )
     } bind VideosContract.Presenter::class
+
+    factory { (view: ArticlesContract.View) ->
+        ArticlesPresenter(
+            view = view,
+            lojongRepository = get()
+        )
+    } bind ArticlesContract.Presenter::class
 }
 
 val featureModule = module {

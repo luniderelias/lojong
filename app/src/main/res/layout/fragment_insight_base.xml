@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/videosCoordinatorLayout"
+    android:id="@+id/insightBaseCoordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,7 +14,7 @@
         android:background="@drawable/round_white_background">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/videosRecyclerView"
+            android:id="@+id/itemsRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +25,7 @@
             tools:listitem="@layout/item_video"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/noVideosTextView"
+            android:id="@+id/emptyItemsTextView"
             style="@style/Text.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,11 +33,11 @@
             android:layout_marginTop="@dimen/large_margin"
             android:layout_marginEnd="@dimen/normal_margin"
             android:gravity="center"
-            android:text="@string/videos_not_found"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/videos_not_found" />
 
         <ProgressBar
             android:id="@+id/progressBar"
