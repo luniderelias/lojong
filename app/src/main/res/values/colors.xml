@@ -12,5 +12,9 @@
     <color name="white">#F7F5F6</color>
     <color name="fundamentals_top_bar">#76BE93</color>
     <color name="custom_text_color">#80848F</color>
+    <color name="quote_grey_text">#707070</color>
     <color name="gray_background">#ECECEC</color>
+    <color name="blue_background">#4067AB</color>
+    <color name="quote_blue_text">#446DAF</color>
+    <color name="transparent_background">#11000000</color>
 </resources>

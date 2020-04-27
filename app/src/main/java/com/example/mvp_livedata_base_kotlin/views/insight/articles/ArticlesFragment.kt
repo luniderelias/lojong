@@ -72,8 +72,10 @@ class ArticlesFragment : BaseFragment(), ArticlesContract.View {
     }
 
     private fun setupRecyclerView(){
-        adapter = ArticleItemsAdapter(this::onShareButtonClick)
-        itemsRecyclerView?.adapter = adapter
-        itemsRecyclerView?.layoutManager = LinearLayoutManager(activity)
+        activity?.let {
+            adapter = ArticleItemsAdapter(this::onShareButtonClick)
+            itemsRecyclerView?.adapter = adapter
+            itemsRecyclerView?.layoutManager = LinearLayoutManager(it)
+        }
     }
 }

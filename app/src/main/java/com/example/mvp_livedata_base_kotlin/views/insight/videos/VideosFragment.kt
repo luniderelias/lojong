@@ -86,8 +86,10 @@ class VideosFragment : BaseFragment(), VideosContract.View {
     }
 
     private fun setupRecyclerView() {
-        adapter = VideoItemsAdapter(this::onPlayVideoClick, this::onShareButtonClick)
-        itemsRecyclerView?.adapter = adapter
-        itemsRecyclerView?.layoutManager = LinearLayoutManager(activity)
+        activity?.let {
+            adapter = VideoItemsAdapter(this::onPlayVideoClick, this::onShareButtonClick)
+            itemsRecyclerView?.adapter = adapter
+            itemsRecyclerView?.layoutManager = LinearLayoutManager(it)
+        }
     }
 }

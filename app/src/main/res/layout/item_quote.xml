@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/large_margin"
+    android:layout_marginStart="@dimen/large_margin"
+    android:layout_marginEnd="@dimen/large_margin"
+    android:background="@color/white">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/quoteImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:background="@color/white"
+            app:srcCompat="@drawable/first_quote_background"
+            app:layout_constraintDimensionRatio="H,2:2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintDimensionRatio="H,2:2"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/shareQuoteButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/quoteDescription"
+            style="@style/Text.Quote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:gravity="center"
+            tools:text="Neste episódio, falamos sobre as recentes pesquisas dos efeitos da prática de meditação e como funciona este treino da mente." />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/quoteAuthor"
+            style="@style/Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            android:gravity="center"
+            android:maxLines="3"
+            android:ellipsize="end"
+            tools:text="Author Name" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/shareQuoteButton"
+            style="@style/Text.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:background="@drawable/round_blue_background"
+            android:drawableStart="@drawable/ic_share"
+            android:drawablePadding="@dimen/small_padding"
+            android:gravity="center"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="@dimen/normal_padding"
+            android:paddingStart="@dimen/normal_margin"
+            android:paddingTop="@dimen/small_padding"
+            android:paddingEnd="@dimen/normal_margin"
+            android:paddingBottom="@dimen/small_padding"
+            app:drawableTint="@color/white"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/share" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,6 +24,11 @@
         <item name="android:textSize">@dimen/app_font_size</item>
     </style>
 
+    <style name="Text.Quote">
+        <item name="android:fontFamily">@font/asap_bold</item>
+        <item name="android:textSize">@dimen/small_font_size</item>
+    </style>
+
     <style name="Text.Title">
         <item name="android:fontFamily">@font/asap_bold</item>
         <item name="android:textSize">@dimen/app_title_size</item>

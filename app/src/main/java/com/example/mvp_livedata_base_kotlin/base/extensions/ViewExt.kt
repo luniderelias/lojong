@@ -43,3 +43,17 @@ fun ImageView.loadImage(imageUrl: String, circle: Boolean = false, errorPlacehol
         .apply(requestOptions)
         .into(this)
 }
+
+fun ImageView.loadImage(imageResId: Int, circle: Boolean = false, errorPlaceholder: Int? = null) {
+
+    val requestOptions = RequestOptions().apply {
+        if (circle) circleCrop()
+        if (errorPlaceholder != null) placeholder(AppCompatResources.getDrawable(context.applicationContext, errorPlaceholder))
+    }
+
+    Glide.with(context.applicationContext)
+        .applyDefaultRequestOptions(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.DATA))
+        .load(imageResId)
+        .apply(requestOptions)
+        .into(this)
+}

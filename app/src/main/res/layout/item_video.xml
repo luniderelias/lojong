@@ -78,7 +78,7 @@
         android:layout_marginEnd="@dimen/large_margin"
         android:background="@drawable/round_grey_background"
         android:drawableStart="@drawable/ic_share"
-        android:drawablePadding="@dimen/normal_margin"
+        android:drawablePadding="@dimen/small_padding"
         android:gravity="center"
         android:maxLines="3"
         android:layout_marginBottom="@dimen/large_margin"

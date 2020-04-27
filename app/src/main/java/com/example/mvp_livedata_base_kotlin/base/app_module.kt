@@ -10,6 +10,8 @@ import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsContr
 import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsPresenter
 import com.example.mvp_livedata_base_kotlin.views.insight.articles.ArticlesContract
 import com.example.mvp_livedata_base_kotlin.views.insight.articles.ArticlesPresenter
+import com.example.mvp_livedata_base_kotlin.views.insight.quotes.QuotesContract
+import com.example.mvp_livedata_base_kotlin.views.insight.quotes.QuotesPresenter
 import com.example.mvp_livedata_base_kotlin.views.insight.videos.VideosContract
 import com.example.mvp_livedata_base_kotlin.views.insight.videos.VideosPresenter
 import com.example.mvp_livedata_base_kotlin.views.main.MainContract
@@ -56,6 +58,13 @@ val appModule = module {
             lojongRepository = get()
         )
     } bind ArticlesContract.Presenter::class
+
+    factory { (view: QuotesContract.View) ->
+        QuotesPresenter(
+            view = view,
+            lojongRepository = get()
+        )
+    } bind QuotesContract.Presenter::class
 }
 
 val featureModule = module {
