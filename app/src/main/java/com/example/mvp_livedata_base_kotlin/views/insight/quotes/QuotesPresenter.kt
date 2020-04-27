@@ -1,16 +1,10 @@
 package com.example.mvp_livedata_base_kotlin.views.insight.quotes
 
-import com.example.mvp_livedata_base_kotlin.base.enums.QuoteEnum
 import com.example.mvp_livedata_base_kotlin.base.extensions.launchIO
 import com.example.mvp_livedata_base_kotlin.base.extensions.launchMain
-import com.example.mvp_livedata_base_kotlin.data.model.ArticleItem
 import com.example.mvp_livedata_base_kotlin.data.model.QuoteItem
-import com.example.mvp_livedata_base_kotlin.data.model.VideoItem
 import com.example.mvp_livedata_base_kotlin.data.model.whenever
 import com.example.mvp_livedata_base_kotlin.data.remote.LojongRepository
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 
 class QuotesPresenter(
     override var view: QuotesContract.View,

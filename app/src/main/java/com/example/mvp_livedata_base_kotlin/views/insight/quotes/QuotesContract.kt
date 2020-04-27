@@ -1,5 +1,6 @@
 package com.example.mvp_livedata_base_kotlin.views.insight.quotes
 
+import android.graphics.Bitmap
 import com.example.mvp_livedata_base_kotlin.base.BasePresenter
 import com.example.mvp_livedata_base_kotlin.base.BaseView
 import com.example.mvp_livedata_base_kotlin.data.model.ArticleItem
@@ -12,7 +13,7 @@ interface QuotesContract {
         fun showLoading()
         fun hideLoading()
         fun updateAdapter(items: List<QuoteItem>)
-        fun onShareButtonClick(quoteItem: QuoteItem, position: Int)
+        fun onShareButtonClick(bitmap: Bitmap?, position: Int)
         fun onLoadQuotesSuccessful(items: List<QuoteItem>)
         fun onLoadQuotesError()
         fun handleItemsVisibility(shouldShowItems: Boolean)
