@@ -21,7 +21,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name="com.example.mvp_livedata_base_kotlin.views.main.MainActivity">
+        <activity android:name="com.example.mvp_livedata_base_kotlin.views.main.MainActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

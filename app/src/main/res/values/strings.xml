@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mvp-livedata-base-kotlin</string>
+    <string name="app_name">Lojong Test</string>
     <string name="day">Dia %d</string>
     <string name="insight">Insight</string>
     <string name="fundamentals">Fundamentos</string>

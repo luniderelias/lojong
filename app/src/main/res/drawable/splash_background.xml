@@ -1,0 +1,19 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:startColor="#B25B78"
+                android:endColor="#C27B88"
+                android:type="linear"/>
+        </shape>
+    </item>
+    <item
+        android:top="@dimen/splash_logo_vertical_margin"
+        android:bottom="@dimen/splash_logo_vertical_margin"
+        android:left="@dimen/splash_logo_horizontal_margin"
+        android:right="@dimen/splash_logo_horizontal_margin">
+        <bitmap
+            android:src="@drawable/icon"/>
+    </item>
+</layer-list>
