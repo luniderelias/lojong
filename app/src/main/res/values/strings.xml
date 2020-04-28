@@ -12,6 +12,7 @@
     <string name="videos_load_failed">Não conseguimos carregar os videos</string>
     <string name="articles_load_failed">Não conseguimos carregar os artigos</string>
     <string name="quotes_load_failed">Não conseguimos carregar as citações</string>
+    <string name="quotes_sharing_failed">Não conseguimos compartilhar esta citação</string>
     <string name="share">Compartilhar</string>
     <string name="share_by">Compartilhar por</string>
 </resources>

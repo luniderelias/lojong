@@ -58,6 +58,13 @@ class QuotesFragment : BaseFragment(), QuotesContract.View {
             .show()
     }
 
+    override fun onShareQuoteError() {
+        Snackbar.make(insightBaseCoordinatorLayout,getString(R.string.quotes_sharing_failed), Snackbar.LENGTH_LONG)
+            .setBackgroundTint(ResourcesCompat.getColor(resources, R.color.design_default_color_error, null))
+            .setTextColor(ResourcesCompat.getColor(resources, R.color.white, null))
+            .show()
+    }
+
     override fun onLoadQuotesSuccessful(items: List<QuoteItem>) {
         updateAdapter(items)
     }
@@ -67,7 +74,7 @@ class QuotesFragment : BaseFragment(), QuotesContract.View {
             saveImageToCacheStorage(it)
             shareImage()
         }.whenNull {
-            //TODO: Failed
+            onShareQuoteError()
         }
     }
 

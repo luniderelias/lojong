@@ -16,6 +16,7 @@ interface QuotesContract {
         fun onShareButtonClick(bitmap: Bitmap?, position: Int)
         fun onLoadQuotesSuccessful(items: List<QuoteItem>)
         fun onLoadQuotesError()
+        fun onShareQuoteError()
         fun handleItemsVisibility(shouldShowItems: Boolean)
     }
     interface Presenter : BasePresenter<View> {
