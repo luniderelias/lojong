@@ -48,7 +48,7 @@ class FundamentalsView @JvmOverloads constructor(
         )
     private var buttonsHorizontalPositions = listOf(3, 5, 7, 11, 18, 25, 29)
     private var buttons: MutableList<Button> = mutableListOf()
-    private var currentPosition = 0
+    private var currentPosition = 1
     private var clickedPoint = Point(0, 0)
 
     private var canvas: Canvas? = null
@@ -213,7 +213,7 @@ class FundamentalsView @JvmOverloads constructor(
         pathTwo.draw(canvas)
         waterfall.draw(canvas)
         elephants.draw(canvas)
-        character.draw(canvas)
         buttons.forEach { it.draw(canvas) }
+        character.draw(canvas)
     }
 }

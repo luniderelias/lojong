@@ -29,12 +29,11 @@ class Elephant(
     }
 
     private fun setPosition() {
-        y = -(point.y * height).toInt() + screenHeight - topBarHeight - bottomBarHeight
+        y = -(point.y * height).toInt() + screenHeight - topBarHeight - bottomBarHeight + initY
         x = (point.x * screenWidth).toInt()
-        initY = y
     }
 
-    fun changeElephantOrientation(context: Context, index: Int){
+    fun changeElephantOrientation(context: Context, index: Int) {
         elephantOrientationEnum = getElephantOrientation(index)
         globalDrawable = AppCompatResources.getDrawable(
             context,
@@ -53,9 +52,14 @@ class Elephant(
     }
 
     fun moveToPosition(point: PointF) {
-        point.y += (y - initY)
         this.point = point
         setPosition()
+    }
+
+    override fun move(scrollY: Int) {
+        val moveValue = (20 * density).toInt()
+        y += if(scrollY > 0 ) moveValue else - moveValue
+        initY += if(scrollY > 0 ) moveValue else - moveValue
     }
 
     override fun draw(canvas: Canvas) {
