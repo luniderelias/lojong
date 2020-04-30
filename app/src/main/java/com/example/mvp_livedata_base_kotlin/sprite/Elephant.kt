@@ -1,6 +1,7 @@
 package com.example.mvp_livedata_base_kotlin.sprite
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.PointF
 import android.graphics.drawable.Drawable
@@ -9,38 +10,78 @@ import com.example.mvp_livedata_base_kotlin.R
 import com.example.mvp_livedata_base_kotlin.base.enums.ElephantOrientationEnum
 import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsView
 
+
 class Elephant(
     fundamentalsView: FundamentalsView,
-    context: Context,
+    private var context: Context,
     private var point: PointF,
-    private var elephantOrientationEnum: ElephantOrientationEnum
+    private var position: Int
 ) : Character(fundamentalsView, context) {
 
     private var initY = 0
-    private var elephantToRightPositions = listOf(4, 5, 8, 9, 10, 11)
+    private var elephantToRightPositions =
+        listOf(4, 5, 8, 9, 10, 11, 13, 14, 16, 17, 18, 19, 20, 22, 23, 28, 29, 30)
+    private var elephantRotationAngles = listOf(
+        0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f,
+        0f, 0f, 90f, 90f, 90f, 90f, 45f, 60f, 90f, 90f,
+        0f, 0f, 90f, 60f, 45f, 90f, 90f, 45f, 60f, 60f, 90f
+    )
 
-    private var globalDrawable: Drawable? = null
+    override var globalDrawable: Drawable? = null
+    private lateinit var tempCanvas: Canvas
 
     init {
-        changeElephantOrientation(context, 0)
+        changeElephantDrawable(position)
+        rotateDrawable()
         width = (0.1274 * screenWidth).toInt()
         height = (0.7681 * width).toInt()
         setPosition()
     }
 
+    private fun rotateDrawable() {
+        globalDrawable = getElephantDrawable(position)
+        bitmap = getCurrentBitmap()
+        tempCanvas = Canvas(bitmap!!)
+        tempCanvas.rotate(angle, bitmap!!.width.toFloat(), bitmap!!.height.toFloat())
+        tempCanvas.drawBitmap(bitmap!!, 0f, 0f, null)
+    }
+
+    private fun getCurrentBitmap(): Bitmap? {
+        return Bitmap.createBitmap(
+            globalDrawable!!.intrinsicWidth,
+            globalDrawable!!.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+    }
+
+
     private fun setPosition() {
         y = -(point.y * height).toInt() + screenHeight - topBarHeight - bottomBarHeight + initY
         x = (point.x * screenWidth).toInt()
+        rotate(elephantRotationAngles[position])
     }
 
-    fun changeElephantOrientation(context: Context, index: Int) {
-        elephantOrientationEnum = getElephantOrientation(index)
-        globalDrawable = AppCompatResources.getDrawable(
-            context,
-            if (elephantOrientationEnum == ElephantOrientationEnum.LEFT)
-                R.drawable.ic_elephant_to_left
-            else
-                R.drawable.ic_elephant_to_right
+    fun changeElephantDrawable(position: Int) {
+        globalDrawable = getElephantDrawable(position)
+    }
+
+    private fun getElephantDrawable(position: Int): Drawable? {
+        return AppCompatResources.getDrawable(
+            context, when (position) {
+                in 0..11 -> {
+                    if (getElephantOrientation(position) == ElephantOrientationEnum.LEFT)
+                        R.drawable.ic_elephant_to_left
+                    else
+                        R.drawable.ic_elephant_to_right
+                }
+                in 12..30 -> {
+                    if (getElephantOrientation(position) == ElephantOrientationEnum.LEFT)
+                        R.drawable.ic_elephant_on_water_to_left
+                    else
+                        R.drawable.ic_elephant_on_water_to_right
+                }
+                else -> R.drawable.ic_elephant_to_left
+            }
         )
     }
 
@@ -58,8 +99,8 @@ class Elephant(
 
     override fun move(scrollY: Int) {
         val moveValue = (20 * density).toInt()
-        y += if(scrollY > 0 ) moveValue else - moveValue
-        initY += if(scrollY > 0 ) moveValue else - moveValue
+        y += if (scrollY > 0) moveValue else -moveValue
+        initY += if (scrollY > 0) moveValue else -moveValue
     }
 
     override fun draw(canvas: Canvas) {

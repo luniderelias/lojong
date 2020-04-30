@@ -33,7 +33,6 @@ abstract class Sprite(
     var x: Int = 0
     var y: Int = 0
     var offsetT = 0
-    var angle: Float = 0F
     protected var src: Rect = Rect()
     protected var dst: Rect = Rect()
 
@@ -81,16 +80,11 @@ abstract class Sprite(
         src.set(col * width, row * height, (col + 1) * width, (row + 1) * height)
         dst.set(x, y, x + width, y + height)
         canvas.drawBitmap(bitmap!!, src, dst, null)
-        canvas.rotate(angle)
     }
 
     open fun move(scrollY: Int) {
         val moveValue = (20 * density).toInt()
         y += if(scrollY > 0 ) moveValue else - moveValue
-    }
-
-    open fun rotate(angle: Float) {
-        this.angle = angle
     }
 
 }

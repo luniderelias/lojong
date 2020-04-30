@@ -15,27 +15,32 @@ import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsView
 class Button(
     fundamentalsView: FundamentalsView,
     context: Context,
-    private var buttonStateEnum: ButtonStateEnum,
-    private var buttonOrientationEnum: ButtonOrientationEnum,
-    day: Int,
+    private var currentPosition: Int,
     point: PointF
 ) :
     Sprite(fundamentalsView, context) {
 
+    private var buttonsHorizontalPositions = listOf(3, 5, 7, 11, 18, 25, 29)
     private var globalDrawable: Drawable? = null
     private var currentDay: String = ""
     private var textPaint: Paint = Paint()
     private var textX = 0f
     private var textY = 0f
 
+    private var buttonStateEnum: ButtonStateEnum
+    private var buttonOrientationEnum: ButtonOrientationEnum
+    private var day: Int = currentPosition + 1
+
     init {
+        buttonStateEnum = getCurrentButtonStateEnum(day)
+        buttonOrientationEnum = getButtonOrientation(day)
         setCurrentStateImage(context)
         setValues(point)
         setDay(context, day)
     }
 
     private fun setValues(point: PointF) {
-        if(buttonOrientationEnum == ButtonOrientationEnum.VERTICAL) {
+        if(getButtonOrientation(day) == ButtonOrientationEnum.VERTICAL) {
             width = (0.21 * screenWidth).toInt()
             height = (1.0697 * width).toInt()
         } else {
@@ -46,6 +51,22 @@ class Button(
         x = (point.x * screenWidth).toInt()
         textX = x + (width / 2f)
         textY = (2.1f * height / 3f)
+    }
+
+    private fun getButtonOrientation(index: Int): ButtonOrientationEnum {
+        return if (buttonsHorizontalPositions.any { it == index })
+            ButtonOrientationEnum.HORIZONTAL
+        else
+            ButtonOrientationEnum.VERTICAL
+    }
+
+    private fun getCurrentButtonStateEnum(index: Int): ButtonStateEnum {
+        return when {
+            index <= 12 -> return if (index <= day) ButtonStateEnum.FIRST_UNLOCKED
+            else ButtonStateEnum.FIRST_LOCKED
+            index <= day -> ButtonStateEnum.SECOND_UNLOCKED
+            else -> ButtonStateEnum.SECOND_LOCKED
+        }
     }
 
     private fun setCurrentStateImage(context: Context) {
@@ -63,7 +84,7 @@ class Button(
                 globalDrawable = AppCompatResources.getDrawable(
                     context,
                     if (buttonOrientationEnum == ButtonOrientationEnum.VERTICAL)
-                        R.drawable.ic_first_button_unlocked
+                        R.drawable.ic_first_button_vertical_unlocked
                     else
                         R.drawable.ic_first_button_horizontal_unlocked
                 )
@@ -73,18 +94,30 @@ class Button(
                     AppCompatResources.getDrawable(
                         context,
                         if (buttonOrientationEnum == ButtonOrientationEnum.VERTICAL)
-                            R.drawable.ic_first_button_locked
+                            R.drawable.ic_first_button_vertical_locked
                         else
                             R.drawable.ic_first_button_horizontal_locked
                     )
             }
             ButtonStateEnum.SECOND_UNLOCKED -> {
                 globalDrawable =
-                    AppCompatResources.getDrawable(context, R.drawable.ic_first_button_locked)
+                    AppCompatResources.getDrawable(
+                        context,
+                        if (buttonOrientationEnum == ButtonOrientationEnum.VERTICAL)
+                            R.drawable.ic_second_button_vertical_unlocked
+                        else
+                            R.drawable.ic_second_button_horizontal_unlocked
+                    )
             }
             ButtonStateEnum.SECOND_LOCKED -> {
                 globalDrawable =
-                    AppCompatResources.getDrawable(context, R.drawable.ic_first_button_locked)
+                    AppCompatResources.getDrawable(
+                        context,
+                        if (buttonOrientationEnum == ButtonOrientationEnum.VERTICAL)
+                            R.drawable.ic_second_button_vertical_locked
+                        else
+                            R.drawable.ic_second_button_horizontal_locked
+                    )
             }
         }
     }
@@ -96,9 +129,14 @@ class Button(
 
     private fun setDay(context: Context, day: Int) {
         currentDay = context.getString(R.string.day, day)
-        textPaint.color = ContextCompat.getColor(context, R.color.brown_text)
+        textPaint.color = getDayTextColor(context, day)
         textPaint.textSize = (0.15f * height)
         textPaint.textAlign = Paint.Align.CENTER
+    }
+
+    private fun getDayTextColor(context: Context, day: Int): Int{
+        return if(day <= 12) ContextCompat.getColor(context, R.color.brown_text)
+        else ContextCompat.getColor(context, R.color.white)
     }
 
     override fun draw(canvas: Canvas) {

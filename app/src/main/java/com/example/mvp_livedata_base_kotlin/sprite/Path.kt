@@ -30,8 +30,8 @@ class Path(fundamentalsView: FundamentalsView, context: Context, pathEnum: PathE
                 globalDrawable = AppCompatResources.getDrawable(context, R.drawable.second_path)
                 height = (2 * canvasHeight) / 3
                 y = - height - (canvasHeight / 3) + screenHeight - topBarHeight - bottomBarHeight
-                x += (0.0422015 * screenWidth).toInt()
-                width = screenWidth
+                x += (0.082 * screenWidth).toInt()
+                width = (0.935 * screenWidth).toInt()
             }
         }
     }
