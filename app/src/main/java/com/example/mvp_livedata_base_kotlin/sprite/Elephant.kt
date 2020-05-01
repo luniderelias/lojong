@@ -22,7 +22,7 @@ class Elephant(
     private var elephantRotationAngles = listOf(
         180, 180, 180, 180, 0, 0, 180, 180, 0, 0,
         0, 0, 180, 90, 0, 180, 90, 45, 60, 90,
-        90, 180, 0, 90, 120, 135, 270, 270,60, 45, 90
+        90, 180, 0, 90, 120, 135, 270, 270,60, 60, 90, 180
     )
 
     override var globalDrawable: Drawable? = null
@@ -58,7 +58,7 @@ class Elephant(
                     R.drawable.ic_elephant_on_water_60_degrees
                 }
                 ElephantRotationEnum.DEGREES_90 -> {
-                    R.drawable.elephant_on_water_90_degrees
+                    R.drawable.ic_elephant_on_water_90_degrees
                 }
                 ElephantRotationEnum.DEGREES_120 -> {
                     R.drawable.ic_elephant_on_water_120_degrees

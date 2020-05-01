@@ -76,7 +76,7 @@
             android:drawablePadding="@dimen/small_padding"
             android:gravity="center"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="@dimen/normal_padding"
+            android:layout_marginBottom="@dimen/small_padding"
             android:paddingStart="@dimen/normal_margin"
             android:paddingTop="@dimen/small_padding"
             android:paddingEnd="@dimen/normal_margin"

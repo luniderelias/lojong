@@ -8,12 +8,8 @@
                 android:type="linear"/>
         </shape>
     </item>
-    <item
-        android:top="@dimen/splash_logo_vertical_margin"
-        android:bottom="@dimen/splash_logo_vertical_margin"
-        android:left="@dimen/splash_logo_horizontal_margin"
-        android:right="@dimen/splash_logo_horizontal_margin">
-        <bitmap
-            android:src="@drawable/icon"/>
+    <item android:gravity="center">
+        <bitmap android:src="@drawable/icon"
+            android:gravity="center"/>
     </item>
 </layer-list>

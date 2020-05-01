@@ -17,8 +17,8 @@ import com.example.mvp_livedata_base_kotlin.base.enums.ButtonOrientationEnum
 import com.example.mvp_livedata_base_kotlin.base.enums.PathEnum
 import com.example.mvp_livedata_base_kotlin.base.enums.ButtonStateEnum
 import com.example.mvp_livedata_base_kotlin.sprite.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class FundamentalsView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -44,14 +44,27 @@ class FundamentalsView @JvmOverloads constructor(
             PointF(0.218f, 10.08f),
             PointF(0.218f, 11.60f),
             PointF(0.218f, 13.10f),
-            PointF(0.43f, 15.39f),
+            PointF(0.43f, 15.36f),
             PointF(0.633f, 15.59f),
             PointF(0.225f, 19.0f),
             PointF(0.225f, 20.5f),
             PointF(0.527f, 22.3f),
             PointF(0.128f, 24.3f),
             PointF(0.128f, 25.7f),
-            PointF(0.37f, 29.048f)
+            PointF(0.37f, 28.98f),
+            PointF(0.574f, 27.5f),
+            PointF(0.574f, 28.6f),
+            PointF(0.574f, 29.7f),
+            PointF(0.272f, 31.4f),
+            PointF(0.672f, 33.2f),
+            PointF(0.672f, 34.7f),
+            PointF(0.46f, 38.88f),
+            PointF(0.225f, 36.7f),
+            PointF(0.225f, 38f),
+            PointF(0.225f, 39.3f),
+            PointF(0.48f, 44f),
+            PointF(0.673f, 41.5f),
+            PointF(0.673f, 43f)
         )
     private var elephantPositions =
         listOf(
@@ -63,19 +76,33 @@ class FundamentalsView @JvmOverloads constructor(
             PointF(0.69f, 15.4f),
             PointF(0.71f, 20.0f),
             PointF(0.30f, 20.8f),
-            PointF(0.25f, 24.6f),
-            PointF(0.25f, 28.3f),
-            PointF(0.29f, 31.8f),
-            PointF(0.665f, 33.8f),
-            PointF(0.43f, 41.5f),
-            PointF(0.26f, 45.5f),
-            PointF(0.36f, 49.4f),
-            PointF(0.33f, 53.6f),
-            PointF(0.17f, 57.7f),
-            PointF(0.23f, 61.2f)
+            PointF(0.25f, 24.4f),
+            PointF(0.25f, 28f),
+            PointF(0.29f, 31.4f),
+            PointF(0.665f, 33.2f),
+            PointF(0.43f, 41.0f),
+            PointF(0.26f, 44.6f),
+            PointF(0.36f, 48.6f),
+            PointF(0.33f, 52.8f),
+            PointF(0.17f, 56.8f),
+            PointF(0.23f, 60.4f),
+            PointF(0.59f, 60.9f),
+            PointF(0.61f, 63.7f),
+            PointF(0.61f, 66.2f),
+            PointF(0.46f, 69.5f),
+            PointF(0.54f, 73.6f),
+            PointF(0.71f, 77.5f),
+            PointF(0.68f, 81f),
+            PointF(0.31f, 81.5f),
+            PointF(0.27f, 85.1f),
+            PointF(0.27f, 88.1f),
+            PointF(0.3f, 91.7f),
+            PointF(0.7f, 92.4f),
+            PointF(0.7f, 96.5f),
+            PointF(0.5f, 102.5f)
         )
     private var buttons: MutableList<Button> = mutableListOf()
-    private var currentPosition = 10
+    private var currentPosition = 0
     private var clickedPoint = Point(0, 0)
 
     private var canvas: Canvas? = null
@@ -136,7 +163,7 @@ class FundamentalsView @JvmOverloads constructor(
     private fun goToNextPosition(index: Int) {
         if (index < buttonPositions.size) {
             val nextPosition = index + 1
-            buttons[nextPosition].changeState(context, unlockIndexButtonEnum(nextPosition))
+            if(nextPosition < buttons.size) buttons[nextPosition].changeState(context, unlockIndexButtonEnum(nextPosition))
             if (nextPosition > currentPosition) {
                 character.moveToPosition(elephantPositions[nextPosition])
                 character.changeElephantDrawable(nextPosition)
@@ -185,7 +212,7 @@ class FundamentalsView @JvmOverloads constructor(
                 character.move(if ((character.y) >= (character.screenHeight) - character.topBarHeight) -1 else 1)
                 buttons.forEach { it.move(if (it.y >= (it.screenHeight - it.topBarHeight)) -1 else 1) }
             }
-        } catch (e: IllegalArgumentException){
+        } catch (e: IllegalArgumentException) {
             e.printStackTrace()
         }
     }
@@ -210,17 +237,14 @@ class FundamentalsView @JvmOverloads constructor(
     }
 
     private fun drawOnce() {
-        GlobalScope.launch {
-            if (character.y <= -background.screenHeight)
+        draw()
+        if (character.y <= background.screenHeight)
+            while (y > (character.y - background.screenHeight / 3)) {
                 draw()
-            else {
-                while (y > (character.y - background.screenHeight / 3)) {
-                    draw()
-                    moveScreen(Point(0, 50), 4)
-                }
+                moveScreen(Point(0, 50), 4)
             }
-        }
     }
+
 
     private fun draw() {
         canvas = null
