@@ -18,7 +18,7 @@ class Elephants(fundamentalsView: FundamentalsView, context: Context) :
         width = (0.5432 * screenWidth).toInt()
         height = (0.4445 * width).toInt()
         x += (0.0212 * screenWidth).toInt()
-        y = - canvasHeight + (0.85 * screenHeight).toInt() - topBarHeight - bottomBarHeight
+        y = - canvasHeight + (1.45 * screenHeight).toInt() - topBarHeight - bottomBarHeight
     }
 
     override fun draw(canvas: Canvas) {

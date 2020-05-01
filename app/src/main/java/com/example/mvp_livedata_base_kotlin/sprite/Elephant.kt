@@ -58,7 +58,7 @@ class Elephant(
                     R.drawable.ic_elephant_on_water_60_degrees
                 }
                 ElephantRotationEnum.DEGREES_90 -> {
-                    R.drawable.ic_elephant_on_water_90_degrees
+                    R.drawable.elephant_on_water_90_degrees
                 }
                 ElephantRotationEnum.DEGREES_120 -> {
                     R.drawable.ic_elephant_on_water_120_degrees

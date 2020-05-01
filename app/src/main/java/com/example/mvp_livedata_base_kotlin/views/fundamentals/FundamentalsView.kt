@@ -46,8 +46,12 @@ class FundamentalsView @JvmOverloads constructor(
             PointF(0.218f, 13.10f),
             PointF(0.43f, 15.39f),
             PointF(0.633f, 15.59f),
-            PointF(0.225f, 19.15f),
-            PointF(0.225f, 21.0f)
+            PointF(0.225f, 19.0f),
+            PointF(0.225f, 20.5f),
+            PointF(0.527f, 22.3f),
+            PointF(0.128f, 24.3f),
+            PointF(0.128f, 25.7f),
+            PointF(0.37f, 29.048f)
         )
     private var elephantPositions =
         listOf(
@@ -63,8 +67,12 @@ class FundamentalsView @JvmOverloads constructor(
             PointF(0.25f, 28.3f),
             PointF(0.29f, 31.8f),
             PointF(0.665f, 33.8f),
-            PointF(0.43f, 41.8f),
-            PointF(0.28f, 46.0f)
+            PointF(0.43f, 41.5f),
+            PointF(0.26f, 45.5f),
+            PointF(0.36f, 49.4f),
+            PointF(0.33f, 53.6f),
+            PointF(0.17f, 57.7f),
+            PointF(0.23f, 61.2f)
         )
     private var buttons: MutableList<Button> = mutableListOf()
     private var currentPosition = 10
@@ -155,26 +163,30 @@ class FundamentalsView @JvmOverloads constructor(
     }
 
     private fun moveScreen(pt: Point) {
-        val movingFactor = (pt.y - initialClick.y)
-        pathOne.move(movingFactor)
-        pathTwo.move(movingFactor)
-        topBackground.move(movingFactor)
-        waterfall.move(movingFactor)
-        elephants.move(movingFactor)
-        buttons.forEach { it.move(movingFactor) }
-        bridge.move(movingFactor)
-        character.move(movingFactor)
-        if ((pathOne.y + pathOne.height) >= (pathOne.screenHeight - pathOne.topBarHeight - pathOne.bottomBarHeight) && (topBackground.y) <= 0) {
-            draw()
-        } else {
-            pathOne.move(if ((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
-            pathTwo.move(if ((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
-            topBackground.move(if ((topBackground.y) >= 0) -1 else 1)
-            waterfall.move(if ((waterfall.y) >= 0) -1 else 1)
-            bridge.move(if ((bridge.y) >= 0) -1 else 1)
-            elephants.move(if ((elephants.y) >= 0) -1 else 1)
-            character.move(if ((character.y) >= (character.screenHeight) - character.topBarHeight) -1 else 1)
-            buttons.forEach { it.move(if (it.y >= (it.screenHeight - it.topBarHeight)) -1 else 1) }
+        try {
+            val movingFactor = (pt.y - initialClick.y)
+            pathOne.move(movingFactor)
+            pathTwo.move(movingFactor)
+            topBackground.move(movingFactor)
+            waterfall.move(movingFactor)
+            elephants.move(movingFactor)
+            buttons.forEach { it.move(movingFactor) }
+            bridge.move(movingFactor)
+            character.move(movingFactor)
+            if ((pathOne.y + pathOne.height) >= (pathOne.screenHeight - pathOne.topBarHeight - pathOne.bottomBarHeight) && (topBackground.y) <= 0) {
+                draw()
+            } else {
+                pathOne.move(if ((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
+                pathTwo.move(if ((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
+                topBackground.move(if ((topBackground.y) >= 0) -1 else 1)
+                waterfall.move(if ((waterfall.y) >= 0) -1 else 1)
+                bridge.move(if ((bridge.y) >= 0) -1 else 1)
+                elephants.move(if ((elephants.y) >= 0) -1 else 1)
+                character.move(if ((character.y) >= (character.screenHeight) - character.topBarHeight) -1 else 1)
+                buttons.forEach { it.move(if (it.y >= (it.screenHeight - it.topBarHeight)) -1 else 1) }
+            }
+        } catch (e: IllegalArgumentException){
+            e.printStackTrace()
         }
     }
 
@@ -204,7 +216,7 @@ class FundamentalsView @JvmOverloads constructor(
             else {
                 while (y > (character.y - background.screenHeight / 3)) {
                     draw()
-                    moveScreen(Point(0, 50), 3)
+                    moveScreen(Point(0, 50), 4)
                 }
             }
         }

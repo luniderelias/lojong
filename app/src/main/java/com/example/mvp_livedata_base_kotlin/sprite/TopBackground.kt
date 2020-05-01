@@ -15,7 +15,7 @@ class TopBackground(fundamentalsView: FundamentalsView, context: Context) :
 
     init {
         globalDrawable = AppCompatResources.getDrawable(context, R.drawable.top_background)
-        y = - canvasHeight + (0.3 * screenHeight).toInt() - bottomBarHeight
+        y = - canvasHeight + (0.8 * screenHeight).toInt() - bottomBarHeight
         width = (1.935 * screenWidth).toInt()
         height = (0.5088 * width).toInt()
         x -= (0.3 * screenWidth).toInt()
