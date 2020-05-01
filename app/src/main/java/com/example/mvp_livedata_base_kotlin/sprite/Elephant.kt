@@ -83,13 +83,13 @@ class Elephant(
         setPosition()
     }
 
-    override fun move(scrollY: Int) {
-        y += getMoveValue(scrollY)
-        initY += getMoveValue(scrollY)
+    override fun move(scrollY: Int, movingSpeed: Int) {
+        y += getMoveValue(scrollY, movingSpeed)
+        initY += getMoveValue(scrollY, movingSpeed)
     }
 
-    private fun getMoveValue(scrollY: Int): Int {
-        val moveValue = (20 * density).toInt()
+    private fun getMoveValue(scrollY: Int, movingSpeed: Int): Int {
+        val moveValue = (movingSpeed * density).toInt()
         return if (scrollY > 0) moveValue else -moveValue
     }
 

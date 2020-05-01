@@ -15,4 +15,5 @@
     <string name="quotes_sharing_failed">Não conseguimos compartilhar esta citação</string>
     <string name="share">Compartilhar</string>
     <string name="share_by">Compartilhar por</string>
+    <string name="play_video_without_player_error_message">Não encontramos nenhum reprodutor de videos em seu dispositivo</string>
 </resources>

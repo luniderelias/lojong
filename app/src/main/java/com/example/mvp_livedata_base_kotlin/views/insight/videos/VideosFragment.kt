@@ -1,9 +1,11 @@
 package com.example.mvp_livedata_base_kotlin.views.insight.videos
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import com.example.mvp_livedata_base_kotlin.base.BaseFragment
 import com.example.mvp_livedata_base_kotlin.base.extensions.injectPresenter
 import com.example.mvp_livedata_base_kotlin.base.extensions.isVisible
 import com.example.mvp_livedata_base_kotlin.data.model.VideoItem
+import com.example.mvp_livedata_base_kotlin.views.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_insight_base.*
 
@@ -82,8 +85,20 @@ class VideosFragment : BaseFragment(), VideosContract.View {
     override fun onPlayVideoClick(videoItem: VideoItem, position: Int) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(Uri.parse(videoItem.aws_url), "video/*")
-        activity?.let { ContextCompat.startActivity(it.applicationContext, intent, null) }
+        activity?.let {
+            try {
+                ContextCompat.startActivity(it as MainActivity, intent, null)
+            } catch (e: ActivityNotFoundException) {
+                e.printStackTrace()
+                Toast.makeText(
+                    it,
+                    getString(R.string.play_video_without_player_error_message),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
     }
+
 
     private fun setupRecyclerView() {
         activity?.let {

@@ -82,8 +82,8 @@ abstract class Sprite(
         canvas.drawBitmap(bitmap!!, src, dst, null)
     }
 
-    open fun move(scrollY: Int) {
-        val moveValue = (20 * density).toInt()
+    open fun move(scrollY: Int, movingSpeed: Int) {
+        val moveValue = (movingSpeed * density).toInt()
         y += if(scrollY > 0 ) moveValue else - moveValue
     }
 

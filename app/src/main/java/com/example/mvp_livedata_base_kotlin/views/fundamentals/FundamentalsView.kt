@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.os.Build
 import android.view.MotionEvent
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.graphics.Canvas
 import android.graphics.Point
 import android.graphics.PointF
@@ -19,6 +20,9 @@ import com.example.mvp_livedata_base_kotlin.base.enums.ButtonStateEnum
 import com.example.mvp_livedata_base_kotlin.sprite.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
+
+const val FUNDAMENTALS_PREFERENCES = "LOJONG_TEST_FUNDAMENTALS_PREFERENCES"
+const val CURRENT_POSITION_PREFERENCE = "CURRENT_POSITION"
 
 class FundamentalsView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -107,8 +111,10 @@ class FundamentalsView @JvmOverloads constructor(
     private var clickedPoint = Point(0, 0)
 
     private var canvas: Canvas? = null
+    private var prefs = context.getSharedPreferences(FUNDAMENTALS_PREFERENCES, MODE_PRIVATE)
 
     init {
+        currentPosition = prefs.getInt(CURRENT_POSITION_PREFERENCE, 0)
         isFocusable = true
         background = Background(this, context)
         backgroundElements = BackgroundElements(this, context)
@@ -157,7 +163,7 @@ class FundamentalsView @JvmOverloads constructor(
         }
 
         if (event.action == MotionEvent.ACTION_MOVE)
-            moveScreen(clickedPoint)
+            moveScreen(clickedPoint, 20)
 
         return true
     }
@@ -165,13 +171,17 @@ class FundamentalsView @JvmOverloads constructor(
     private fun goToNextPosition(index: Int) {
         if (index < buttonPositions.size) {
             val nextPosition = index + 1
-            if(nextPosition < buttons.size) buttons[nextPosition].changeState(context, unlockIndexButtonEnum(nextPosition))
+            if (nextPosition < buttons.size) buttons[nextPosition].changeState(
+                context,
+                unlockIndexButtonEnum(nextPosition)
+            )
             if (nextPosition > currentPosition) {
                 character.moveToPosition(elephantPositions[nextPosition])
                 character.changeElephantDrawable(nextPosition)
                 currentPosition = nextPosition
                 initialClick = Point(0, 0)
-                drawOnce()
+                moveScreen(Point(0,50), getMovingTimes(), 20)
+                prefs.edit().putInt(CURRENT_POSITION_PREFERENCE, nextPosition).apply()
             }
         }
     }
@@ -185,36 +195,36 @@ class FundamentalsView @JvmOverloads constructor(
         return button.getState() == ButtonStateEnum.FIRST_LOCKED || button.getState() == ButtonStateEnum.SECOND_LOCKED
     }
 
-    private fun moveScreen(pt: Point, times: Int) {
+    private fun moveScreen(pt: Point, times: Int, movingSpeed: Int) {
         for (x in 0..times) {
-            moveScreen(pt)
+            moveScreen(pt, movingSpeed)
         }
     }
 
-    private fun moveScreen(pt: Point) {
+    private fun moveScreen(pt: Point, movingSpeed: Int) {
         try {
             val movingFactor = (pt.y - initialClick.y)
-            pathOne.move(movingFactor)
-            pathTwo.move(movingFactor)
-            topBackground.move(movingFactor)
-            waterfall.move(movingFactor)
-            elephants.move(movingFactor)
-            buttons.forEach { it.move(movingFactor) }
-            bridge.move(movingFactor)
-            backgroundElements.move(movingFactor)
-            character.move(movingFactor)
+            pathOne.move(movingFactor,movingSpeed)
+            pathTwo.move(movingFactor,movingSpeed)
+            topBackground.move(movingFactor,movingSpeed)
+            waterfall.move(movingFactor,movingSpeed)
+            elephants.move(movingFactor,movingSpeed)
+            buttons.forEach { it.move(movingFactor,movingSpeed) }
+            bridge.move(movingFactor,movingSpeed)
+            backgroundElements.move(movingFactor,movingSpeed)
+            character.move(movingFactor,movingSpeed)
             if ((pathOne.y + pathOne.height) >= (pathOne.screenHeight - pathOne.topBarHeight - pathOne.bottomBarHeight) && (topBackground.y) <= 0) {
                 draw()
             } else {
-                pathOne.move(if ((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
-                pathTwo.move(if ((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1)
-                topBackground.move(if ((topBackground.y) >= 0) -1 else 1)
-                waterfall.move(if ((waterfall.y) >= 0) -1 else 1)
-                bridge.move(if ((bridge.y) >= 0) -1 else 1)
-                elephants.move(if ((elephants.y) >= 0) -1 else 1)
-                backgroundElements.move(if ((backgroundElements.y) >= 0) -1 else 1)
-                character.move(if ((character.y) >= (character.screenHeight) - character.topBarHeight) -1 else 1)
-                buttons.forEach { it.move(if (it.y >= (it.screenHeight - it.topBarHeight)) -1 else 1) }
+                pathOne.move(if ((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1, movingSpeed)
+                pathTwo.move(if ((pathTwo.y) >= (pathTwo.topBarHeight)) -1 else 1, movingSpeed)
+                topBackground.move(if ((topBackground.y) >= 0) -1 else 1, movingSpeed)
+                waterfall.move(if ((waterfall.y) >= 0) -1 else 1, movingSpeed)
+                bridge.move(if ((bridge.y) >= 0) -1 else 1, movingSpeed)
+                elephants.move(if ((elephants.y) >= 0) -1 else 1, movingSpeed)
+                backgroundElements.move(if ((backgroundElements.y) >= 0) -1 else 1, movingSpeed)
+                character.move((if ((character.y) >= (character.screenHeight) - character.topBarHeight) -1 else 1), movingSpeed)
+                buttons.forEach { it.move(if (it.y >= (it.screenHeight - it.topBarHeight)) -1 else 1, movingSpeed) }
             }
         } catch (e: IllegalArgumentException) {
             e.printStackTrace()
@@ -243,12 +253,47 @@ class FundamentalsView @JvmOverloads constructor(
     private fun drawOnce() {
         draw()
         if (character.y <= background.screenHeight)
-            while (y > (character.y - background.screenHeight / 3)) {
-                draw()
-                moveScreen(Point(0, 50), 4)
+            GlobalScope.launch(Dispatchers.Main) {
+                while (y > (character.y - background.screenHeight / 4)) {
+                    draw()
+                    moveScreen(Point(0, 50), getMovingTimes(), getMovingSpeed())
+                }
             }
     }
 
+    private fun getMovingSpeed(): Int{
+        return when (currentPosition) {
+            in 0..9 -> {
+                20
+            }
+            in 10..19 -> {
+                30
+            }
+            in 20..32 -> {
+                50
+            }
+            else -> {
+                20
+            }
+        }
+    }
+
+    private fun getMovingTimes(): Int {
+        return when (currentPosition) {
+            in 0..9 -> {
+                4
+            }
+            in 10..19 -> {
+                6
+            }
+            in 20..32 -> {
+                5
+            }
+            else -> {
+                4
+            }
+        }
+    }
 
     private fun draw() {
         canvas = null
