@@ -26,6 +26,7 @@ class FundamentalsView @JvmOverloads constructor(
 
     private var character: Elephant
     private var background: Background
+    private var backgroundElements: BackgroundElements
     private var topBackground: TopBackground
     private var waterfall: Waterfall
     private var elephants: Elephants
@@ -110,6 +111,7 @@ class FundamentalsView @JvmOverloads constructor(
     init {
         isFocusable = true
         background = Background(this, context)
+        backgroundElements = BackgroundElements(this, context)
         topBackground = TopBackground(this, context)
         waterfall = Waterfall(this, context)
         character = Elephant(
@@ -199,6 +201,7 @@ class FundamentalsView @JvmOverloads constructor(
             elephants.move(movingFactor)
             buttons.forEach { it.move(movingFactor) }
             bridge.move(movingFactor)
+            backgroundElements.move(movingFactor)
             character.move(movingFactor)
             if ((pathOne.y + pathOne.height) >= (pathOne.screenHeight - pathOne.topBarHeight - pathOne.bottomBarHeight) && (topBackground.y) <= 0) {
                 draw()
@@ -209,6 +212,7 @@ class FundamentalsView @JvmOverloads constructor(
                 waterfall.move(if ((waterfall.y) >= 0) -1 else 1)
                 bridge.move(if ((bridge.y) >= 0) -1 else 1)
                 elephants.move(if ((elephants.y) >= 0) -1 else 1)
+                backgroundElements.move(if ((backgroundElements.y) >= 0) -1 else 1)
                 character.move(if ((character.y) >= (character.screenHeight) - character.topBarHeight) -1 else 1)
                 buttons.forEach { it.move(if (it.y >= (it.screenHeight - it.topBarHeight)) -1 else 1) }
             }
@@ -271,6 +275,7 @@ class FundamentalsView @JvmOverloads constructor(
         elephants.draw(canvas)
         buttons.forEach { it.draw(canvas) }
         bridge.draw(canvas)
+        backgroundElements.draw(canvas)
         character.draw(canvas)
     }
 }
