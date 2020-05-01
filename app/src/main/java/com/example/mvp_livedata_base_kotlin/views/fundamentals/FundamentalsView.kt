@@ -7,6 +7,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Point
 import android.graphics.PointF
+import android.provider.Settings
 import android.util.AttributeSet
 import android.util.Log
 import android.view.SurfaceHolder
@@ -16,6 +17,8 @@ import com.example.mvp_livedata_base_kotlin.base.enums.ButtonOrientationEnum
 import com.example.mvp_livedata_base_kotlin.base.enums.PathEnum
 import com.example.mvp_livedata_base_kotlin.base.enums.ButtonStateEnum
 import com.example.mvp_livedata_base_kotlin.sprite.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class FundamentalsView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -64,7 +67,7 @@ class FundamentalsView @JvmOverloads constructor(
             PointF(0.28f, 46.0f)
         )
     private var buttons: MutableList<Button> = mutableListOf()
-    private var currentPosition = 12
+    private var currentPosition = 10
     private var clickedPoint = Point(0, 0)
 
     private var canvas: Canvas? = null
@@ -89,7 +92,8 @@ class FundamentalsView @JvmOverloads constructor(
                 Button(
                     this,
                     context,
-                    index,
+                    currentPosition,
+                    index + 1,
                     pointF
                 )
             )
@@ -129,8 +133,9 @@ class FundamentalsView @JvmOverloads constructor(
                 character.moveToPosition(elephantPositions[nextPosition])
                 character.changeElephantDrawable(nextPosition)
                 currentPosition = nextPosition
+                initialClick = Point(0, 0)
+                drawOnce()
             }
-            draw()
         }
     }
 
@@ -141,6 +146,12 @@ class FundamentalsView @JvmOverloads constructor(
 
     private fun isButtonLocked(button: Button): Boolean {
         return button.getState() == ButtonStateEnum.FIRST_LOCKED || button.getState() == ButtonStateEnum.SECOND_LOCKED
+    }
+
+    private fun moveScreen(pt: Point, times: Int) {
+        for (x in 0..times) {
+            moveScreen(pt)
+        }
     }
 
     private fun moveScreen(pt: Point) {
@@ -187,7 +198,16 @@ class FundamentalsView @JvmOverloads constructor(
     }
 
     private fun drawOnce() {
-        draw()
+        GlobalScope.launch {
+            if (character.y <= -background.screenHeight)
+                draw()
+            else {
+                while (y > (character.y - background.screenHeight / 3)) {
+                    draw()
+                    moveScreen(Point(0, 50), 3)
+                }
+            }
+        }
     }
 
     private fun draw() {

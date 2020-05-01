@@ -1,15 +1,14 @@
 package com.example.mvp_livedata_base_kotlin.sprite
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.PointF
 import android.graphics.drawable.Drawable
 import androidx.appcompat.content.res.AppCompatResources
 import com.example.mvp_livedata_base_kotlin.R
-import com.example.mvp_livedata_base_kotlin.base.enums.ElephantOrientationEnum
+import com.example.mvp_livedata_base_kotlin.base.enums.ElephantRotationEnum
+import com.example.mvp_livedata_base_kotlin.base.enums.toDegrees
 import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsView
-
 
 class Elephant(
     fundamentalsView: FundamentalsView,
@@ -18,47 +17,27 @@ class Elephant(
     private var position: Int
 ) : Character(fundamentalsView, context) {
 
-    private var initY = 0
-    private var elephantToRightPositions =
-        listOf(4, 5, 8, 9, 10, 11, 13, 14, 16, 17, 18, 19, 20, 22, 23, 28, 29, 30)
+    var initY = 0
+
     private var elephantRotationAngles = listOf(
-        0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f,
-        0f, 0f, 90f, 90f, 90f, 90f, 45f, 60f, 90f, 90f,
-        0f, 0f, 90f, 60f, 45f, 90f, 90f, 45f, 60f, 60f, 90f
+        180, 180, 180, 180, 0, 0, 180, 180, 0, 0,
+        0, 0, 180, 90, 0, 180, 90, 45, 60, 90,
+        90, 180, 0, 90, 120, 135, 270, 270,60, 45, 90
     )
 
     override var globalDrawable: Drawable? = null
-    private lateinit var tempCanvas: Canvas
 
     init {
         changeElephantDrawable(position)
-        rotateDrawable()
         width = (0.1274 * screenWidth).toInt()
         height = (0.7681 * width).toInt()
         setPosition()
     }
 
-    private fun rotateDrawable() {
-        globalDrawable = getElephantDrawable(position)
-        bitmap = getCurrentBitmap()
-        tempCanvas = Canvas(bitmap!!)
-        tempCanvas.rotate(angle, bitmap!!.width.toFloat(), bitmap!!.height.toFloat())
-        tempCanvas.drawBitmap(bitmap!!, 0f, 0f, null)
-    }
-
-    private fun getCurrentBitmap(): Bitmap? {
-        return Bitmap.createBitmap(
-            globalDrawable!!.intrinsicWidth,
-            globalDrawable!!.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-        )
-    }
-
-
     private fun setPosition() {
         y = -(point.y * height).toInt() + screenHeight - topBarHeight - bottomBarHeight + initY
         x = (point.x * screenWidth).toInt()
-        rotate(elephantRotationAngles[position])
+        rotate(elephantRotationAngles[position].toFloat())
     }
 
     fun changeElephantDrawable(position: Int) {
@@ -67,40 +46,51 @@ class Elephant(
 
     private fun getElephantDrawable(position: Int): Drawable? {
         return AppCompatResources.getDrawable(
-            context, when (position) {
-                in 0..11 -> {
-                    if (getElephantOrientation(position) == ElephantOrientationEnum.LEFT)
-                        R.drawable.ic_elephant_to_left
-                    else
-                        R.drawable.ic_elephant_to_right
+            context, when (elephantRotationAngles[position].toDegrees()) {
+                ElephantRotationEnum.DEGREES_0 -> {
+                    if (position < 12) R.drawable.ic_elephant_to_right
+                    else R.drawable.ic_elephant_on_water_0_degrees
                 }
-                in 12..30 -> {
-                    if (getElephantOrientation(position) == ElephantOrientationEnum.LEFT)
-                        R.drawable.ic_elephant_on_water_to_left
-                    else
-                        R.drawable.ic_elephant_on_water_to_right
+                ElephantRotationEnum.DEGREES_45 -> {
+                    R.drawable.ic_elephant_on_water_45_degrees
                 }
-                else -> R.drawable.ic_elephant_to_left
+                ElephantRotationEnum.DEGREES_60 -> {
+                    R.drawable.ic_elephant_on_water_60_degrees
+                }
+                ElephantRotationEnum.DEGREES_90 -> {
+                    R.drawable.ic_elephant_on_water_90_degrees
+                }
+                ElephantRotationEnum.DEGREES_120 -> {
+                    R.drawable.ic_elephant_on_water_120_degrees
+                }
+                ElephantRotationEnum.DEGREES_135 -> {
+                    R.drawable.ic_elephant_on_water_135_degrees
+                }
+                ElephantRotationEnum.DEGREES_180 -> {
+                    if (position < 12) R.drawable.ic_elephant_to_left
+                    else R.drawable.ic_elephant_on_water_180_degrees
+                }
+                ElephantRotationEnum.DEGREES_270 -> {
+                    R.drawable.ic_elephant_on_water_270_degrees
+                }
             }
         )
     }
 
-    private fun getElephantOrientation(index: Int): ElephantOrientationEnum {
-        return if (elephantToRightPositions.any { it == index })
-            ElephantOrientationEnum.RIGHT
-        else
-            ElephantOrientationEnum.LEFT
-    }
-
     fun moveToPosition(point: PointF) {
         this.point = point
+        position += 1
         setPosition()
     }
 
     override fun move(scrollY: Int) {
+        y += getMoveValue(scrollY)
+        initY += getMoveValue(scrollY)
+    }
+
+    private fun getMoveValue(scrollY: Int): Int {
         val moveValue = (20 * density).toInt()
-        y += if (scrollY > 0) moveValue else -moveValue
-        initY += if (scrollY > 0) moveValue else -moveValue
+        return if (scrollY > 0) moveValue else -moveValue
     }
 
     override fun draw(canvas: Canvas) {

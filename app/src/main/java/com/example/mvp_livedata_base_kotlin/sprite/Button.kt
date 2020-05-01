@@ -16,6 +16,7 @@ class Button(
     fundamentalsView: FundamentalsView,
     context: Context,
     private var currentPosition: Int,
+    private var day: Int,
     point: PointF
 ) :
     Sprite(fundamentalsView, context) {
@@ -29,7 +30,6 @@ class Button(
 
     private var buttonStateEnum: ButtonStateEnum
     private var buttonOrientationEnum: ButtonOrientationEnum
-    private var day: Int = currentPosition + 1
 
     init {
         buttonStateEnum = getCurrentButtonStateEnum(day)
@@ -62,9 +62,9 @@ class Button(
 
     private fun getCurrentButtonStateEnum(index: Int): ButtonStateEnum {
         return when {
-            index <= 12 -> return if (index <= day) ButtonStateEnum.FIRST_UNLOCKED
+            index <= 12 -> return if (index <= (currentPosition + 1)) ButtonStateEnum.FIRST_UNLOCKED
             else ButtonStateEnum.FIRST_LOCKED
-            index <= day -> ButtonStateEnum.SECOND_UNLOCKED
+            index <= (currentPosition + 1) -> ButtonStateEnum.SECOND_UNLOCKED
             else -> ButtonStateEnum.SECOND_LOCKED
         }
     }
