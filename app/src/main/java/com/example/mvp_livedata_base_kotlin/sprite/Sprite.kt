@@ -1,12 +1,15 @@
 package com.example.mvp_livedata_base_kotlin.sprite
 
+import android.R
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Rect
-import android.os.Build
 import android.util.TypedValue
+import androidx.appcompat.app.AppCompatActivity
 import com.example.mvp_livedata_base_kotlin.views.fundamentals.FundamentalsView
+import com.example.mvp_livedata_base_kotlin.views.main.MainActivity
 
 
 abstract class Sprite(
@@ -57,16 +60,24 @@ abstract class Sprite(
 
     private fun getToolbarHeight(context: Context) {
         val tv = TypedValue()
-        if (context.theme.resolveAttribute(android.R.attr.actionBarSize, tv, true))
+        if (context.theme.resolveAttribute(R.attr.actionBarSize, tv, true))
             toolbarHeight =
                 TypedValue.complexToDimensionPixelSize(tv.data, context.resources.displayMetrics)
     }
 
     private fun getStatusBarHeight(context: Context) {
         val resId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
-        if (resId > 0) {
-            statusBarHeight = context.resources.getDimensionPixelSize(resId)
+        statusBarHeight = if (resId > 0) {
+            context.resources.getDimensionPixelSize(resId)
+        } else {
+            dpsToPixels(context as MainActivity, 25)
         }
+    }
+
+    private fun dpsToPixels(activity: AppCompatActivity, dps: Int): Int {
+        val r = activity.resources
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, dps.toFloat(), r.displayMetrics).toInt()
     }
 
     private fun getBottomBarHeight(context: Context) {
